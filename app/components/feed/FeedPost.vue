@@ -69,7 +69,7 @@ defineProps<{ post: FeedPostData }>()
 }
 
 .post-name.venue {
-  color: var(--color-accent);
+  color: #d4a840;
 }
 
 .post-type {

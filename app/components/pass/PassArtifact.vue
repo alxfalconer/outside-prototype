@@ -3,7 +3,7 @@ import type { Pass } from '~/composables/usePasses'
 import { formatDate, formatTimestamp } from '~/utils/format'
 import { useEvents } from '~/composables/useEvents'
 
-const props = defineProps<{ pass: Pass }>()
+const props = defineProps<{ pass: Pass; archiveMode?: boolean }>()
 
 const { getEventById } = useEvents()
 const event = computed(() => getEventById(props.pass.eventId))
@@ -15,7 +15,7 @@ const event = computed(() => getEventById(props.pass.eventId))
     <div class="pass-left">
       <div class="pass-stub-label label">{{ pass.category }}</div>
       <div v-if="event" class="pass-flyer">
-        <EventFlyer :event="event" :archiveMode="true" size="sm" />
+        <EventFlyer :event="event" :archiveMode="props.archiveMode ?? true" size="sm" />
       </div>
     </div>
 

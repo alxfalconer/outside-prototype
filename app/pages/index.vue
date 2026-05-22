@@ -12,6 +12,17 @@ const filteredEvents = computed(() =>
   filterEvents(selectedCity.value || undefined, selectedCategory.value || undefined)
 )
 
+const cityOpen = ref(false)
+const categoryOpen = ref(false)
+
+function closeDropdowns() {
+  cityOpen.value = false
+  categoryOpen.value = false
+}
+
+onMounted(() => document.addEventListener('click', closeDropdowns))
+onUnmounted(() => document.removeEventListener('click', closeDropdowns))
+
 const FEED_POSTS: FeedPostData[] = [
   {
     id: 'p1',
@@ -96,15 +107,60 @@ const FEED_POSTS: FeedPostData[] = [
       <template v-if="activeTab === 'index'">
         <!-- Filters -->
         <div class="filters">
-          <select v-model="selectedCity" class="filter-select mono">
-            <option value="">All cities</option>
-            <option v-for="city in cities" :key="city" :value="city">{{ city }}</option>
-          </select>
-          <select v-model="selectedCategory" class="filter-select mono">
-            <option value="">All categories</option>
-            <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
-          </select>
-          <span v-if="selectedCity || selectedCategory" class="filter-count mono">
+
+          <!-- Borough dropdown -->
+          <div class="filter-dropdown" :class="{ open: cityOpen }" @click.stop>
+            <button
+              class="filter-trigger label"
+              :class="{ active: selectedCity }"
+              @click="cityOpen = !cityOpen; categoryOpen = false"
+            >
+              {{ selectedCity || 'All Boroughs' }}
+              <span class="filter-caret">{{ cityOpen ? '↑' : '↓' }}</span>
+            </button>
+            <div v-if="cityOpen" class="filter-menu">
+              <button
+                class="filter-option label"
+                :class="{ active: !selectedCity }"
+                @click="selectedCity = ''; cityOpen = false"
+              >All Boroughs</button>
+              <button
+                v-for="city in cities"
+                :key="city"
+                class="filter-option label"
+                :class="{ active: selectedCity === city }"
+                @click="selectedCity = city; cityOpen = false"
+              >{{ city }}</button>
+            </div>
+          </div>
+
+          <!-- Category dropdown -->
+          <div class="filter-dropdown" :class="{ open: categoryOpen }" @click.stop>
+            <button
+              class="filter-trigger label"
+              :class="{ active: selectedCategory }"
+              @click="categoryOpen = !categoryOpen; cityOpen = false"
+            >
+              {{ selectedCategory || 'All Categories' }}
+              <span class="filter-caret">{{ categoryOpen ? '↑' : '↓' }}</span>
+            </button>
+            <div v-if="categoryOpen" class="filter-menu">
+              <button
+                class="filter-option label"
+                :class="{ active: !selectedCategory }"
+                @click="selectedCategory = ''; categoryOpen = false"
+              >All Categories</button>
+              <button
+                v-for="cat in categories"
+                :key="cat"
+                class="filter-option label"
+                :class="{ active: selectedCategory === cat }"
+                @click="selectedCategory = cat; categoryOpen = false"
+              >{{ cat }}</button>
+            </div>
+          </div>
+
+          <span v-if="selectedCity || selectedCategory" class="filter-count label">
             {{ filteredEvents.length }} events
           </span>
           <button
@@ -112,8 +168,9 @@ const FEED_POSTS: FeedPostData[] = [
             class="filter-clear label"
             @click="selectedCity = ''; selectedCategory = ''"
           >
-            Clear
+            Clear ×
           </button>
+
         </div>
 
         <!-- Column headers -->
@@ -164,7 +221,7 @@ const FEED_POSTS: FeedPostData[] = [
 .page-inner {
   max-width: var(--column-max);
   margin: 0 auto;
-  padding: var(--space-3) var(--column-padding) var(--space-7);
+  padding: var(--space-4) var(--column-padding) var(--space-7);
 }
 
 /* ─── Page header ───────────────────────────────────── */
@@ -172,8 +229,8 @@ const FEED_POSTS: FeedPostData[] = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-2);
-  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -216,39 +273,89 @@ const FEED_POSTS: FeedPostData[] = [
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
 }
 
-.filter-select {
-  font-size: var(--text-label);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  background: var(--color-bg);
+.filter-dropdown {
+  position: relative;
+}
+
+.filter-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
   border: 1px solid var(--color-border);
-  padding: 6px 10px;
+  padding: 8px 12px;
   cursor: pointer;
-  appearance: none;
+  color: var(--color-text-secondary);
   transition: border-color var(--transition-subtle), color var(--transition-subtle);
+  white-space: nowrap;
 }
 
-.filter-select:hover,
-.filter-select:focus {
+.filter-trigger:hover,
+.filter-dropdown.open .filter-trigger {
   border-color: var(--color-text-secondary);
   color: var(--color-text);
-  outline: none;
+}
+
+.filter-trigger.active {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+}
+
+.filter-caret {
+  opacity: 0.5;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+.filter-menu {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  min-width: 100%;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-option {
+  background: none;
+  border: none;
+  padding: 9px 12px;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-subtle), background var(--transition-subtle);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filter-option:last-child {
+  border-bottom: none;
+}
+
+.filter-option:hover {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.filter-option.active {
+  color: var(--color-text);
 }
 
 .filter-count {
-  font-size: var(--text-label);
   color: var(--color-text-secondary);
-  letter-spacing: 0.04em;
+  padding: 8px 4px;
 }
 
 .filter-clear {
   background: none;
   border: none;
-  padding: 0;
+  padding: 8px 4px;
   cursor: pointer;
   color: var(--color-text-secondary);
   transition: color var(--transition-subtle);
@@ -261,9 +368,9 @@ const FEED_POSTS: FeedPostData[] = [
 /* ─── List header ───────────────────────────────────── */
 .list-header {
   display: grid;
-  grid-template-columns: 40px 80px 1fr 160px 72px 48px 20px;
+  grid-template-columns: 40px 120px 1fr 160px 72px 48px 20px;
   gap: var(--space-2);
-  padding: 0 0 var(--space-1);
+  padding: 0 0 var(--space-2) 12px;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 0;
 }

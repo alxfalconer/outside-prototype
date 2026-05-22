@@ -4,22 +4,23 @@ body {
   font-weight: 400;
   color: var(--color-text);
   background-color: var(--color-bg);
-  line-height: 1.6;
-  letter-spacing: var(--tracking-tight);
+  line-height: 1.5;
+  letter-spacing: 0;
 }
 
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-label);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-text-secondary);
 }
 
 .mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-meta);
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0;
 }
 

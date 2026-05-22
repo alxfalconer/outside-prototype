@@ -128,29 +128,32 @@ const purchaseLabel = computed(() => {
 /* ─── Collapsed row ─────────────────────────────────── */
 .row {
   display: grid;
-  grid-template-columns: 40px 80px 1fr 160px 72px 48px 20px;
+  grid-template-columns: 40px 120px 1fr 160px 72px 48px 20px;
   align-items: center;
   gap: var(--space-2);
   width: 100%;
-  padding: 11px 0;
+  padding: 11px 0 11px 12px;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background var(--transition-subtle);
+  transition: background var(--transition-subtle), box-shadow var(--transition-subtle);
 }
 
 .row:hover {
-  background: transparent;
-}
-
-.row:hover .row-title {
-  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 2px 0 0 var(--color-accent);
 }
 
 .row-index {
   color: var(--color-text-secondary);
   font-size: var(--text-label);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transition-subtle);
+}
+
+.row:hover .row-index {
+  color: var(--color-accent);
 }
 
 .row-category {
@@ -160,11 +163,15 @@ const purchaseLabel = computed(() => {
 .row-title {
   font-size: var(--text-body);
   font-weight: 400;
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: color var(--transition-subtle);
+}
+
+.row:hover .row-title {
+  color: var(--color-text);
 }
 
 .row-venue,
@@ -174,13 +181,24 @@ const purchaseLabel = computed(() => {
   font-size: var(--text-label);
   letter-spacing: 0.04em;
   text-align: left;
+  transition: color var(--transition-subtle);
+}
+
+.row:hover .row-venue,
+.row:hover .row-date,
+.row:hover .row-price {
+  color: #c0c0c0;
 }
 
 .row-toggle {
-  font-family: var(--font-mono);
   font-size: var(--text-meta);
   color: var(--color-text-secondary);
   text-align: right;
+  transition: color var(--transition-subtle);
+}
+
+.row:hover .row-toggle {
+  color: var(--color-text);
 }
 
 /* ─── Expand animation — CSS grid trick ─────────────── */

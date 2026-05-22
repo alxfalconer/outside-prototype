@@ -22,7 +22,7 @@ const parentSlug = computed(() => {
       <nav class="header-nav">
         <NuxtLink to="/" class="nav-item label" :class="{ active: route.path === '/' }">Index</NuxtLink>
         <NuxtLink to="/profile" class="nav-item label" :class="{ active: route.path === '/profile' }">
-          Archive<span v-if="passCount > 0" class="pass-count">{{ passCount }}</span>
+          Collection<span v-if="passCount > 0" class="pass-count">{{ passCount }}</span>
         </NuxtLink>
       </nav>
     </div>
