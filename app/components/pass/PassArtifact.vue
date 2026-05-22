@@ -10,7 +10,7 @@ const event = computed(() => getEventById(props.pass.eventId))
 </script>
 
 <template>
-  <article class="pass" :class="`pass--${pass.category}`">
+  <article class="pass" :class="[`pass--${pass.category}`, { 'pass--archive': archiveMode }]">
     <!-- Left: ticket stub edge + flyer -->
     <div class="pass-left">
       <div class="pass-stub-label label">{{ pass.category }}</div>
@@ -64,6 +64,19 @@ const event = computed(() => getEventById(props.pass.eventId))
 .pass:hover {
   border-color: var(--color-text-secondary);
   border-left-color: var(--color-accent);
+}
+
+/* ─── Archive / past state ──────────────────────────── */
+.pass--archive {
+  border-left-color: var(--color-past);
+}
+
+.pass--archive:hover {
+  border-left-color: var(--color-past);
+}
+
+.pass--archive .pass-number {
+  color: var(--color-past);
 }
 
 /* ─── Left stub ─────────────────────────────────────── */
@@ -166,5 +179,15 @@ const event = computed(() => getEventById(props.pass.eventId))
   color: var(--color-text-secondary);
   opacity: 0.45;
   letter-spacing: 0.03em;
+}
+
+@media (max-width: 480px) {
+  .pass {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .pass-title {
+    font-size: 1.25rem;
+  }
 }
 </style>

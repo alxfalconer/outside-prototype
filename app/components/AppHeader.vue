@@ -77,6 +77,12 @@ const parentSlug = computed(() => {
   gap: var(--space-4);
 }
 
+@media (max-width: 480px) {
+  .header-nav {
+    gap: var(--space-3);
+  }
+}
+
 .nav-item {
   color: var(--color-text-secondary);
   transition: color var(--transition-subtle);

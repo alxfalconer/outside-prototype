@@ -402,6 +402,11 @@ const recentPasses = computed(() =>
 
 /* ─── Responsive ────────────────────────────────────── */
 @media (max-width: 640px) {
+  .page-inner {
+    padding: var(--space-4) var(--column-padding) var(--space-6);
+    gap: var(--space-3);
+  }
+
   .profile-head {
     flex-direction: column;
   }
@@ -409,6 +414,9 @@ const recentPasses = computed(() =>
   .profile-stats {
     text-align: left;
     align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-3);
   }
 
   .stat {
@@ -417,6 +425,17 @@ const recentPasses = computed(() =>
 
   .passes-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tab-bar {
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-inner {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
   }
 }
 </style>

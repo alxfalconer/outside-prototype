@@ -5,7 +5,8 @@ const route = useRoute()
 const { getEventBySlug } = useEvents()
 const { hasPass } = usePasses()
 
-const event = computed(() => getEventBySlug(route.params.slug as string))
+const slug = route.params.slug as string
+const event = computed(() => getEventBySlug(slug))
 const isAttending = computed(() => event.value ? hasPass(event.value.id) : false)
 
 if (!event.value) {
@@ -80,8 +81,8 @@ if (!event.value) {
               {{ isAttending ? 'You have access.' : 'Ticket holders only.' }}
             </p>
           </div>
-          <NuxtLink :to="`/event/${event.slug}/portal`" class="portal-link label">
-            {{ isAttending ? 'Enter Portal →' : 'Preview →' }}
+          <NuxtLink v-if="isAttending" :to="`/event/${event.slug}/portal`" class="portal-link label">
+            Enter Portal →
           </NuxtLink>
         </div>
 
@@ -381,6 +382,23 @@ if (!event.value) {
 
   .event-title {
     font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .portal-preview-inner {
+    grid-template-columns: 1fr;
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .portal-section {
+    margin-top: var(--space-3);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-inner {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
   }
 }
 </style>

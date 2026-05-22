@@ -158,20 +158,22 @@ const purchaseLabel = computed(() => {
 
 .row-category {
   text-align: left;
+  font-size: 0.5rem;
 }
 
 .row-title {
   font-size: var(--text-body);
   font-weight: 400;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
+  opacity: 0.85;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color var(--transition-subtle);
+  transition: opacity var(--transition-subtle);
 }
 
 .row:hover .row-title {
-  color: var(--color-text);
+  opacity: 1;
 }
 
 .row-venue,
@@ -352,7 +354,7 @@ const purchaseLabel = computed(() => {
 /* ─── Responsive ────────────────────────────────────── */
 @media (max-width: 768px) {
   .row {
-    grid-template-columns: 32px 64px 1fr 48px 20px;
+    grid-template-columns: 32px 100px 1fr 56px 20px;
   }
 
   .row-venue,
@@ -367,6 +369,24 @@ const purchaseLabel = computed(() => {
   .card-flyer {
     width: 100%;
     max-width: 240px;
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 36px 1fr 52px 20px;
+    padding: 10px 0 10px 10px;
+  }
+
+  .row-category {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-actions {
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
 }
 </style>

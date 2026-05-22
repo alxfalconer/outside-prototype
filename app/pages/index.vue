@@ -91,7 +91,7 @@ const FEED_POSTS: FeedPostData[] = [
             :class="{ active: activeTab === 'index' }"
             @click="activeTab = 'index'"
           >
-            Event Index
+            Experiences
           </button>
           <button
             class="tab label"
@@ -289,6 +289,7 @@ const FEED_POSTS: FeedPostData[] = [
   padding: 8px 12px;
   cursor: pointer;
   color: var(--color-text-secondary);
+  font-size: 0.5625rem;
   transition: border-color var(--transition-subtle), color var(--transition-subtle);
   white-space: nowrap;
 }
@@ -329,6 +330,7 @@ const FEED_POSTS: FeedPostData[] = [
   text-align: left;
   cursor: pointer;
   color: var(--color-text-secondary);
+  font-size: 0.5625rem;
   transition: color var(--transition-subtle), background var(--transition-subtle);
   white-space: nowrap;
   border-bottom: 1px solid var(--color-border);
@@ -350,6 +352,7 @@ const FEED_POSTS: FeedPostData[] = [
 .filter-count {
   color: var(--color-text-secondary);
   padding: 8px 4px;
+  font-size: 0.5625rem;
 }
 
 .filter-clear {
@@ -358,6 +361,7 @@ const FEED_POSTS: FeedPostData[] = [
   padding: 8px 4px;
   cursor: pointer;
   color: var(--color-text-secondary);
+  font-size: 0.5625rem;
   transition: color var(--transition-subtle);
 }
 
@@ -388,5 +392,35 @@ const FEED_POSTS: FeedPostData[] = [
   color: var(--color-text-secondary);
   padding: var(--space-5) 0;
   letter-spacing: 0.04em;
+}
+
+/* ─── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .page-inner {
+    padding: var(--space-3) var(--column-padding) var(--space-6);
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .list-header {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-inner {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
 }
 </style>
