@@ -30,6 +30,11 @@ const { isLight, toggle } = useTheme()
 </template>
 
 <style>
+/* ─── Light mode logo inversion ─────────────────────── */
+[data-theme="light"] .wordmark-logo {
+  filter: invert(1);
+}
+
 /* ─── Global theme transition ───────────────────────── */
 *, *::before, *::after {
   transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease, opacity 400ms ease;
