@@ -18,7 +18,7 @@ async function handleLogin() {
   }
   const ok = login(loginEmail.value, loginPassword.value)
   if (ok) {
-    await new Promise(r => setTimeout(r, 380))
+    await new Promise(r => setTimeout(r, 2200))
     document.getElementById('intro-section')?.scrollIntoView({ behavior: 'smooth' })
   }
 }
@@ -171,7 +171,7 @@ const FEED_POSTS: FeedPostData[] = [
           muted
           loop
           playsinline
-          :style="{ opacity: isAuthenticated ? 1 : 0.25, transition: 'opacity 1200ms ease' }"
+          :style="{ opacity: isAuthenticated ? 1 : 0.7, filter: isAuthenticated ? 'none' : 'blur(32px)', transition: 'opacity 1200ms ease, filter 1200ms ease' }"
         />
         <div class="hero-fade" />
         <p class="hero-headline">Something is happening.</p>
@@ -425,6 +425,7 @@ const FEED_POSTS: FeedPostData[] = [
 /* ─── Intro section ─────────────────────────────────── */
 .intro-section {
   padding: var(--space-7) 0;
+  padding-top: clamp(120px, 20vh, 220px);
   max-width: 480px;
   margin: 0 auto;
   text-align: center;
@@ -644,7 +645,7 @@ const FEED_POSTS: FeedPostData[] = [
   top: 56%;
   left: 50%;
   transform: translateX(-50%);
-  width: min(400px, calc(100% - 48px));
+  width: min(320px, calc(100% - 48px));
 }
 
 .auth-row {
@@ -676,7 +677,7 @@ const FEED_POSTS: FeedPostData[] = [
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   padding: 5px 0;
   font-family: var(--font-mono);
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.85);
   outline: none;
@@ -688,7 +689,7 @@ const FEED_POSTS: FeedPostData[] = [
 .auth-input::placeholder {
   color: rgba(255, 255, 255, 0.35);
   font-family: var(--font-mono);
-  font-size: 0.45rem;
+  font-size: 0.55rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -703,7 +704,7 @@ const FEED_POSTS: FeedPostData[] = [
   padding: 0 0 6px 0;
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: 0.45rem;
+  font-size: 0.55rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.65);

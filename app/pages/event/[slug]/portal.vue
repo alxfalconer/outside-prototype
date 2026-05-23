@@ -210,6 +210,10 @@ const galleryPhotos = computed((): GalleryPhoto[] => {
 
 const selectedPhoto = ref<GalleryPhoto | null>(null)
 
+// ─── Official recordings ──────────────────────────────
+const hasRecording = computed(() => isPast.value && !!event.value)
+const RECORDING_EMBED = 'https://www.youtube.com/embed/DEH2cw2ZIyM?start=1265'
+
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') selectedPhoto.value = null
 }
@@ -378,6 +382,35 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
               <span class="mono gallery-empty-text">Photos will appear here during and after the event.</span>
             </div>
           </div>
+
+          <!-- Official Recording -->
+          <template v-if="hasRecording">
+            <BaseDivider />
+            <div class="portal-block">
+              <div class="recording-header">
+                <h3 class="block-title label">Recording</h3>
+                <span class="recording-official-badge label">Official</span>
+              </div>
+
+              <div class="recording-embed">
+                <iframe
+                  :src="RECORDING_EMBED"
+                  class="recording-iframe"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  frameborder="0"
+                />
+              </div>
+
+              <div class="recording-meta mono">
+                <span>Official release — authorized by venue</span>
+                <span class="rmeta-dot">·</span>
+                <span>Video</span>
+                <span class="rmeta-dot">·</span>
+                <span class="recording-not-fan">Not fan-submitted</span>
+              </div>
+            </div>
+          </template>
 
         </template>
       </div>
@@ -1055,6 +1088,60 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   color: var(--color-text-secondary);
   letter-spacing: 0.04em;
   opacity: 0.5;
+}
+
+/* ─── Official Recording ────────────────────────────── */
+.recording-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.recording-official-badge {
+  font-size: 0.45rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  padding: 2px 6px;
+  opacity: 0.7;
+}
+
+.recording-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #080808;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.recording-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.recording-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.5rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  opacity: 0.55;
+  padding-top: var(--space-1);
+}
+
+.rmeta-dot {
+  opacity: 0.4;
+  font-size: 0.4rem;
+}
+
+.recording-not-fan {
+  font-style: italic;
 }
 
 /* ─── Responsive ────────────────────────────────────── */
