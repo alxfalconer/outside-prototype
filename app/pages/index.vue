@@ -20,8 +20,58 @@ function closeDropdowns() {
   categoryOpen.value = false
 }
 
-onMounted(() => document.addEventListener('click', closeDropdowns))
-onUnmounted(() => document.removeEventListener('click', closeDropdowns))
+// ─── Hero scroll transition ──────────────────────────────
+const SCROLL_END = 400
+const HEADER_H = 56
+const TOP_MARGIN = 32
+const FINAL_H_RATIO = 0.6
+const COL_MAX = 1080
+const COL_PAD = 24
+
+const scrollY = ref(0)
+const viewportH = ref(0)
+const viewportW = ref(0)
+
+const progress = computed(() => Math.min(1, scrollY.value / SCROLL_END))
+
+function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
+
+const heroStyle = computed(() => {
+  const t = progress.value
+  const vh = viewportH.value
+  const vw = viewportW.value
+  if (!vh) return {}
+  const top = lerp(0, HEADER_H + TOP_MARGIN, t)
+  const height = lerp(vh, vh * FINAL_H_RATIO, t)
+  const hInset = lerp(0, Math.max(COL_PAD, (vw - COL_MAX) / 2 + COL_PAD), t)
+  return {
+    position: 'fixed' as const,
+    top: `${top}px`,
+    left: `${hInset}px`,
+    right: `${hInset}px`,
+    height: `${height}px`,
+    zIndex: 5,
+  }
+})
+
+const spacerHeight = computed(() =>
+  viewportH.value ? `${SCROLL_END + HEADER_H + TOP_MARGIN + viewportH.value * FINAL_H_RATIO}px` : '100vh'
+)
+
+function onScroll() { scrollY.value = window.scrollY }
+function onResize() { viewportH.value = window.innerHeight; viewportW.value = window.innerWidth }
+
+onMounted(() => {
+  onResize()
+  document.addEventListener('click', closeDropdowns)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onResize, { passive: true })
+})
+onUnmounted(() => {
+  document.removeEventListener('click', closeDropdowns)
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onResize)
+})
 
 const FEED_POSTS: FeedPostData[] = [
   {
@@ -77,7 +127,27 @@ const FEED_POSTS: FeedPostData[] = [
 
 <template>
   <main class="page">
-    <div class="page-inner">
+
+    <!-- Spacer reserves flow space while hero is fixed -->
+    <div class="hero-spacer" :style="{ height: spacerHeight }" />
+
+    <!-- Hero video — position driven by scroll -->
+    <div class="hero" :style="heroStyle">
+      <div class="hero-inner">
+        <video
+          class="hero-video"
+          src="/outside-reel-glow.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        />
+        <div class="hero-fade" />
+        <p class="hero-headline">Something is happening.</p>
+      </div>
+    </div>
+
+    <div id="index-content" class="page-inner">
 
       <!-- Page header -->
       <div class="page-header">
@@ -185,13 +255,14 @@ const FEED_POSTS: FeedPostData[] = [
         </div>
 
         <!-- Event rows -->
-        <div class="event-list">
+        <TransitionGroup name="filter-row" tag="div" class="event-list" appear>
           <EventRow
-            v-for="event in filteredEvents"
+            v-for="(event, i) in filteredEvents"
             :key="event.id"
             :event="event"
+            :style="{ '--i': i }"
           />
-        </div>
+        </TransitionGroup>
 
         <div v-if="filteredEvents.length === 0" class="empty-state mono">
           No events match the selected filters.
@@ -218,7 +289,59 @@ const FEED_POSTS: FeedPostData[] = [
   min-height: calc(100vh - var(--header-height));
 }
 
+/* ─── Hero ──────────────────────────────────────────── */
+.hero {
+  /* position/size driven by JS via inline style */
+  overflow: hidden;
+}
+
+.hero-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-fade {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 8, 0.45);
+  pointer-events: none;
+}
+
+.hero-headline {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(0.625rem, 0.9vw, 0.875rem);
+  font-weight: 500;
+  line-height: 0.93;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  -webkit-font-smoothing: antialiased;
+  pointer-events: none;
+}
+
 .page-inner {
+  position: relative;
+  z-index: 10;
+  background: var(--color-bg);
   max-width: var(--column-max);
   margin: 0 auto;
   padding: var(--space-4) var(--column-padding) var(--space-7);
@@ -379,6 +502,26 @@ const FEED_POSTS: FeedPostData[] = [
   margin-bottom: 0;
 }
 
+
+/* ─── Filter row transition ─────────────────────────── */
+.filter-row-enter-active {
+  transition: opacity 220ms ease;
+  transition-delay: calc(var(--i) * 28ms);
+}
+
+.filter-row-leave-active {
+  transition: opacity 100ms ease;
+  transition-delay: calc(var(--i) * 16ms);
+}
+
+.filter-row-enter-from,
+.filter-row-leave-to {
+  opacity: 0;
+}
+
+.filter-row-move {
+  transition: transform 220ms ease;
+}
 
 /* ─── Feed ──────────────────────────────────────────── */
 .feed {

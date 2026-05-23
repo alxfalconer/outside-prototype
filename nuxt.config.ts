@@ -6,7 +6,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Outside',
-      link: []
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+      ]
     }
   }
 })

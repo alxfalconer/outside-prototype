@@ -196,6 +196,7 @@ const purchaseLabel = computed(() => {
   font-size: var(--text-meta);
   color: var(--color-text-secondary);
   text-align: right;
+  padding-right: 12px;
   transition: color var(--transition-subtle);
 }
 
