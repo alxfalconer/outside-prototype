@@ -17,6 +17,8 @@
   <AppHeader />
 
   <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
+
+  <AppFooter />
 </template>
 
 <style>

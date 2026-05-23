@@ -13,7 +13,6 @@ const event = computed(() => getEventById(props.pass.eventId))
   <article class="pass" :class="[`pass--${pass.category}`, { 'pass--archive': archiveMode }]">
     <!-- Left: ticket stub edge + flyer -->
     <div class="pass-left">
-      <div class="pass-stub-label label">{{ pass.category }}</div>
       <div v-if="event" class="pass-flyer">
         <EventFlyer :event="event" :archiveMode="props.archiveMode ?? true" size="sm" />
       </div>
@@ -22,7 +21,7 @@ const event = computed(() => getEventById(props.pass.eventId))
     <!-- Right: pass information -->
     <div class="pass-info">
       <div class="pass-header">
-        <span class="label pass-issuer-label">Outside</span>
+        <span class="label pass-issuer-label">{{ pass.category }}</span>
         <span class="pass-number mono">{{ pass.passNumber }}</span>
       </div>
 
@@ -121,6 +120,8 @@ const event = computed(() => getEventById(props.pass.eventId))
 .pass-issuer-label {
   color: var(--color-text-secondary);
   opacity: 0.5;
+  font-weight: 400;
+  font-size: 0.5rem;
 }
 
 .pass-number {
@@ -138,7 +139,7 @@ const event = computed(() => getEventById(props.pass.eventId))
 
 .pass-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.01em;

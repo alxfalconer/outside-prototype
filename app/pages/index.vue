@@ -2,7 +2,37 @@
 import type { EventCategory } from '~/composables/useEvents'
 import type { FeedPostData } from '~/components/feed/FeedPost.vue'
 
+const { isAuthenticated, login } = useAuth()
 const { filterEvents, cities, categories } = useEvents()
+
+// ─── Auth gate ────────────────────────────────────────────
+const loginEmail    = ref('')
+const loginPassword = ref('')
+const loginError    = ref('')
+
+async function handleLogin() {
+  loginError.value = ''
+  if (!loginEmail.value.trim() || !loginPassword.value.trim()) {
+    loginError.value = 'Credentials required.'
+    return
+  }
+  const ok = login(loginEmail.value, loginPassword.value)
+  if (ok) {
+    await new Promise(r => setTimeout(r, 380))
+    document.getElementById('intro-section')?.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+// Body scroll lock — prevent access below hero when unauthenticated
+onMounted(() => {
+  if (!isAuthenticated.value) document.body.style.overflow = 'hidden'
+})
+watch(isAuthenticated, authed => {
+  document.body.style.overflow = authed ? '' : 'hidden'
+})
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
 
 const activeTab = ref<'index' | 'feed'>('index')
 const selectedCity = ref('')
@@ -141,16 +171,59 @@ const FEED_POSTS: FeedPostData[] = [
           muted
           loop
           playsinline
+          :style="{ opacity: isAuthenticated ? 1 : 0.25, transition: 'opacity 1200ms ease' }"
         />
         <div class="hero-fade" />
         <p class="hero-headline">Something is happening.</p>
+
+        <!-- Auth gate — overlaid on hero when unauthenticated -->
+        <Transition name="auth-fade">
+          <div v-if="!isAuthenticated" class="auth-gate">
+            <div class="auth-body">
+              <form class="auth-row" @submit.prevent="handleLogin" novalidate>
+                <div class="auth-col">
+                  <input
+                    v-model="loginEmail"
+                    type="email"
+                    class="auth-input"
+                    placeholder="Email"
+                    autocomplete="email"
+                    spellcheck="false"
+                  />
+                </div>
+                <div class="auth-col">
+                  <input
+                    v-model="loginPassword"
+                    type="password"
+                    class="auth-input"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                  />
+                </div>
+                <button type="submit" class="auth-enter">Enter →</button>
+              </form>
+              <p v-if="loginError" class="auth-error">{{ loginError }}</p>
+            </div>
+            <div class="auth-meta">
+              <span class="auth-meta-item">Signal Area — New York City</span>
+              <span class="auth-meta-item">Status — Active</span>
+              <span class="auth-meta-item">Access — Restricted</span>
+            </div>
+          </div>
+        </Transition>
       </div>
     </div>
 
-    <div id="index-content" class="page-inner">
+    <div v-show="isAuthenticated" id="index-content" class="page-inner">
+
+      <!-- Preface -->
+      <div id="intro-section" class="intro-section">
+        <p class="intro-lead">Presence leaves a record.</p>
+        <p class="intro-sub">Collect experiences across New York City.</p>
+      </div>
 
       <!-- Page header -->
-      <div class="page-header">
+      <div id="event-index" class="page-header">
         <h1 class="page-title">
           <span v-if="activeTab === 'index'">Upcoming Events</span>
           <span v-else>Feed</span>
@@ -271,13 +344,14 @@ const FEED_POSTS: FeedPostData[] = [
 
       <!-- Feed tab -->
       <template v-else>
-        <div class="feed">
+        <TransitionGroup name="filter-row" tag="div" class="feed" appear>
           <FeedPost
-            v-for="post in FEED_POSTS"
+            v-for="(post, i) in FEED_POSTS"
             :key="post.id"
             :post="post"
+            :style="{ '--i': i }"
           />
-        </div>
+        </TransitionGroup>
       </template>
 
     </div>
@@ -300,6 +374,7 @@ const FEED_POSTS: FeedPostData[] = [
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: var(--color-bg);
 }
 
 .hero-video {
@@ -328,12 +403,12 @@ const FEED_POSTS: FeedPostData[] = [
   padding: 0;
   white-space: nowrap;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: clamp(0.625rem, 0.9vw, 0.875rem);
+  font-size: clamp(0.5rem, 0.7vw, 0.75rem);
   font-weight: 500;
   line-height: 0.93;
   letter-spacing: -0.02em;
   text-align: center;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.65);
   -webkit-font-smoothing: antialiased;
   pointer-events: none;
 }
@@ -345,6 +420,34 @@ const FEED_POSTS: FeedPostData[] = [
   max-width: var(--column-max);
   margin: 0 auto;
   padding: var(--space-4) var(--column-padding) var(--space-7);
+}
+
+/* ─── Intro section ─────────────────────────────────── */
+.intro-section {
+  padding: var(--space-7) 0;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-lead {
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.intro-sub {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
 }
 
 /* ─── Page header ───────────────────────────────────── */
@@ -527,6 +630,124 @@ const FEED_POSTS: FeedPostData[] = [
 .feed {
   display: flex;
   flex-direction: column;
+}
+
+/* ─── Auth gate ─────────────────────────────────────── */
+.auth-gate {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.auth-body {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(400px, calc(100% - 48px));
+}
+
+.auth-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.auth-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.auth-col-label {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.auth-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 5px 0;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.85);
+  outline: none;
+  transition: border-color var(--transition-subtle);
+  width: 100%;
+  min-width: 0;
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.auth-input:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.auth-enter {
+  background: none;
+  border: none;
+  padding: 0 0 6px 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  transition: color var(--transition-subtle);
+  white-space: nowrap;
+}
+
+.auth-enter:hover {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.auth-error {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  margin-top: var(--space-1);
+}
+
+.auth-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-3) var(--column-padding);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+}
+
+.auth-meta-item {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.auth-fade-leave-active {
+  transition: opacity 350ms ease;
+}
+.auth-fade-leave-to {
+  opacity: 0;
 }
 
 /* ─── Empty state ───────────────────────────────────── */

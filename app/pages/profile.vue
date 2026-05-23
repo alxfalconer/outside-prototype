@@ -6,12 +6,44 @@ const { getEventById } = useEvents()
 
 const activeTab = ref<'upcoming' | 'archive' | 'media'>('upcoming')
 
-const MOCK_USER = {
+const userProfile = reactive({
   username: 'a.falconer',
   displayName: 'Alex Falconer',
-  bio: 'New York.',
+  bio: 'Designer and writer based in New York. Interested in film, contemporary performance, and the architecture of cities. Attending since 2025.',
+  website: 'www.falconer.work',
   joinedDate: 'March 2025',
-  initials: 'AF'
+  avatarSrc: '/avatar.webp',
+})
+
+// ─── Edit modal ───────────────────────────────────────
+const editOpen    = ref(false)
+const editBio     = ref('')
+const editWebsite = ref('')
+const editAvatar  = ref('')
+const avatarInput = ref<HTMLInputElement | null>(null)
+
+function openEdit() {
+  editBio.value     = userProfile.bio
+  editWebsite.value = userProfile.website
+  editAvatar.value  = userProfile.avatarSrc
+  editOpen.value    = true
+}
+
+function handleAvatarChange(e: Event) {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (!file) return
+  editAvatar.value = URL.createObjectURL(file)
+}
+
+function saveEdit() {
+  userProfile.bio       = editBio.value
+  userProfile.website   = editWebsite.value
+  userProfile.avatarSrc = editAvatar.value
+  editOpen.value        = false
+}
+
+function closeEdit() {
+  editOpen.value = false
 }
 
 const now = new Date()
@@ -60,19 +92,21 @@ const recentPasses = computed(() =>
       <!-- Profile header -->
       <div class="profile-head">
         <div class="profile-identity">
-          <div class="profile-avatar">{{ MOCK_USER.initials }}</div>
+          <img :src="userProfile.avatarSrc" alt="" class="profile-avatar" />
           <div class="profile-info">
-            <h1 class="profile-name">{{ MOCK_USER.displayName }}</h1>
-            <p class="profile-username mono">{{ MOCK_USER.username }}</p>
-            <p v-if="MOCK_USER.bio" class="profile-bio">{{ MOCK_USER.bio }}</p>
+            <h1 class="profile-name">{{ userProfile.displayName }}</h1>
+            <p class="profile-username mono">{{ userProfile.username }}</p>
+            <p v-if="userProfile.bio" class="profile-bio">{{ userProfile.bio }}</p>
+            <a v-if="userProfile.website" :href="`https://${userProfile.website}`" target="_blank" rel="noopener" class="profile-website mono">{{ userProfile.website }}<span class="profile-website-icon">↗</span></a>
           </div>
         </div>
 
         <!-- Observational stats — derived, not gamified -->
         <div class="profile-stats">
+          <button class="edit-profile-btn label" @click="openEdit">Edit Profile</button>
           <div class="stat">
             <span class="stat-label label">Joined</span>
-            <span class="stat-value mono">{{ MOCK_USER.joinedDate }}</span>
+            <span class="stat-value mono">{{ userProfile.joinedDate }}</span>
           </div>
           <div class="stat">
             <span class="stat-label label">Upcoming</span>
@@ -91,28 +125,6 @@ const recentPasses = computed(() =>
         </div>
       </div>
 
-      <!-- Attendance strip — last 5 events as flyer thumbnails -->
-      <div v-if="recentPasses.length > 0" class="attendance-strip">
-        <span class="label strip-label">Recent</span>
-        <div class="strip-items">
-          <div
-            v-for="pass in recentPasses"
-            :key="pass.id"
-            class="strip-item"
-          >
-            <template v-if="getEventById(pass.eventId)">
-              <NuxtLink :to="`/event/${getEventById(pass.eventId)!.slug}`">
-                <EventFlyer
-                  :event="getEventById(pass.eventId)!"
-                  :archiveMode="new Date(pass.date) < now"
-                  size="sm"
-                />
-              </NuxtLink>
-            </template>
-          </div>
-        </div>
-      </div>
-
       <BaseDivider />
 
       <!-- Tab bar -->
@@ -121,7 +133,7 @@ const recentPasses = computed(() =>
           Upcoming
         </button>
         <button class="tab label" :class="{ active: activeTab === 'archive' }" @click="activeTab = 'archive'">
-          Archive
+          Attended
         </button>
         <button class="tab label" :class="{ active: activeTab === 'media' }" @click="activeTab = 'media'">
           Media
@@ -176,6 +188,67 @@ const recentPasses = computed(() =>
       </template>
 
     </div>
+
+    <!-- Edit profile modal -->
+    <Teleport to="body">
+    <Transition name="modal-fade">
+      <div v-if="editOpen" class="modal-backdrop" @click.self="closeEdit">
+        <div class="modal">
+          <div class="modal-header">
+            <span class="modal-title label">Edit Profile</span>
+            <button class="modal-close" @click="closeEdit">×</button>
+          </div>
+
+          <div class="modal-body">
+            <!-- Avatar -->
+            <div class="modal-field">
+              <span class="modal-label label">Photo</span>
+              <div class="avatar-edit" @click="avatarInput?.click()">
+                <img :src="editAvatar" alt="" class="avatar-preview" />
+                <span class="avatar-edit-hint label">Change</span>
+              </div>
+              <input
+                ref="avatarInput"
+                type="file"
+                accept="image/*"
+                class="avatar-file-input"
+                @change="handleAvatarChange"
+              />
+            </div>
+
+            <!-- Bio -->
+            <div class="modal-field">
+              <label class="modal-label label" for="edit-bio">Bio</label>
+              <textarea
+                id="edit-bio"
+                v-model="editBio"
+                class="modal-textarea"
+                rows="4"
+                spellcheck="false"
+              />
+            </div>
+
+            <!-- Website -->
+            <div class="modal-field">
+              <label class="modal-label label" for="edit-website">Website</label>
+              <input
+                id="edit-website"
+                v-model="editWebsite"
+                type="text"
+                class="modal-input"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="modal-cancel label" @click="closeEdit">Cancel</button>
+            <button class="modal-save label" @click="saveEdit">Save</button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+    </Teleport>
   </main>
 </template>
 
@@ -210,17 +283,11 @@ const recentPasses = computed(() =>
 .profile-avatar {
   width: 48px;
   height: 48px;
-  background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-text-secondary);
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
+  display: block;
+  border: 1px solid var(--color-border);
 }
 
 .profile-info {
@@ -231,8 +298,8 @@ const recentPasses = computed(() =>
 
 .profile-name {
   font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.05;
 }
@@ -243,9 +310,31 @@ const recentPasses = computed(() =>
 }
 
 .profile-bio {
-  color: var(--color-text-secondary);
-  font-size: var(--text-body);
-  margin-top: 4px;
+  color: #b8b8b8;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  max-width: 44ch;
+  margin-top: 14px;
+}
+
+.profile-website {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  font-size: var(--text-label);
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  transition: opacity var(--transition-subtle);
+}
+
+.profile-website:hover {
+  opacity: 0.7;
+}
+
+.profile-website-icon {
+  font-size: 0.6rem;
+  opacity: 0.6;
 }
 
 /* ─── Stats ─────────────────────────────────────────── */
@@ -254,6 +343,23 @@ const recentPasses = computed(() =>
   flex-direction: column;
   gap: 8px;
   text-align: right;
+}
+
+.edit-profile-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 4px 9px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-size: 0.5rem;
+  align-self: flex-end;
+  transition: border-color var(--transition-subtle), color var(--transition-subtle);
+  margin-bottom: var(--space-3);
+}
+
+.edit-profile-btn:hover {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 .stat {
@@ -437,5 +543,171 @@ const recentPasses = computed(() =>
     padding-left: var(--space-2);
     padding-right: var(--space-2);
   }
+}
+
+/* ─── Edit modal ─────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.modal {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title {
+  color: var(--color-text-secondary);
+  font-size: var(--text-label);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  transition: color var(--transition-subtle);
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.modal-input,
+.modal-textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  padding: 6px 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition-subtle);
+  resize: none;
+  width: 100%;
+}
+
+.modal-input:focus,
+.modal-textarea:focus {
+  border-bottom-color: var(--color-text-secondary);
+}
+
+.avatar-edit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.avatar-preview {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+}
+
+.avatar-edit-hint {
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-subtle);
+}
+
+.avatar-edit:hover .avatar-edit-hint {
+  color: var(--color-text);
+}
+
+.avatar-file-input {
+  display: none;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.modal-cancel {
+  background: none;
+  border: none;
+  padding: 6px 0;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-size: var(--text-label);
+  transition: color var(--transition-subtle);
+}
+
+.modal-cancel:hover {
+  color: var(--color-text);
+}
+
+.modal-save {
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 6px 16px;
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: var(--text-label);
+  transition: border-color var(--transition-subtle);
+}
+
+.modal-save:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 200ms ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
 }
 </style>

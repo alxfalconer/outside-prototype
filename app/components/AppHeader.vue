@@ -1,5 +1,11 @@
 <script setup lang="ts">
 const { passCount } = usePasses()
+const { isAuthenticated, logout } = useAuth()
+
+function handleLogout() {
+  logout()
+  window.location.replace('/')
+}
 const route = useRoute()
 
 const isEventRoute = computed(() => route.path.startsWith('/event/'))
@@ -11,14 +17,12 @@ const parentSlug = computed(() => {
 const isIndex = computed(() => route.path === '/')
 
 // ─── Constants (must match index.vue) ────────────────────
-const SCROLL_END  = 400
-const HEADER_H    = 56
-const COL_MAX     = 1080
-const COL_PAD     = 24
-const HERO_SCALE  = 2.0
-const LOGO_NAT_H  = 18
-const PHRASE_H    = 12   // approx rendered height of hero headline
-const GAP         = 14   // gap between logo bottom and phrase top in hero
+const SCROLL_END = 400
+const HEADER_H   = 56
+const HERO_SCALE = 2.0
+const LOGO_NAT_H = 18
+const PHRASE_H   = 12
+const GAP        = 14
 
 // ─── State ───────────────────────────────────────────────
 const scrollProgress = ref(0)
@@ -42,16 +46,23 @@ function onScroll() {
   scrolled.value = y > 80
 }
 
+async function onLogoClick(e: Event) {
+  if (route.path !== '/') {
+    e.preventDefault()
+    await navigateTo('/')
+    setTimeout(() => window.scrollTo(0, 0), 50)
+  }
+}
+
 async function onIndexClick(e: Event) {
   e.preventDefault()
   if (route.path !== '/') {
     await navigateTo('/')
-    // Wait for page transition (200ms) + component mount + spacer measurement
     setTimeout(() => {
-      document.getElementById('index-content')?.scrollIntoView({ behavior: 'smooth' })
+      document.getElementById('event-index')?.scrollIntoView({ behavior: 'smooth' })
     }, 280)
   } else {
-    document.getElementById('index-content')?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById('event-index')?.scrollIntoView({ behavior: 'smooth' })
   }
 }
 
@@ -66,9 +77,8 @@ onUnmounted(() => {
 })
 
 // ─── Traveling logo ───────────────────────────────────────
-// Exists only on the index page while the transition is in progress.
-// It starts centered above the hero phrase and interpolates to the
-// natural navbar logo position as the user scrolls.
+// Logo is now centered in the navbar — the animation is a pure
+// vertical drop + scale with no horizontal movement.
 
 const isTraveling = computed(() =>
   isIndex.value && scrollProgress.value < 1
@@ -77,20 +87,19 @@ const isTraveling = computed(() =>
 const travelingLogoStyle = computed(() => {
   if (!isTraveling.value || !viewportH.value || !logoNatW.value) return null
 
-  const t   = scrollProgress.value
-  const vw  = viewportW.value
-  const vh  = viewportH.value
-  const lw  = logoNatW.value
+  const t  = scrollProgress.value
+  const vw = viewportW.value
+  const vh = viewportH.value
+  const lw = logoNatW.value
 
-  // Hero start: logo center sits above the centered phrase
+  // Start: centered above hero phrase
   const heroLogoH = LOGO_NAT_H * HERO_SCALE
   const startCX   = vw / 2
   const startCY   = vh / 2 - PHRASE_H / 2 - GAP - heroLogoH / 2
 
-  // Navbar end: logo center in its natural header position
-  const navLeft = Math.max(COL_PAD, (vw - COL_MAX) / 2 + COL_PAD)
-  const endCX   = navLeft + lw / 2
-  const endCY   = HEADER_H / 2
+  // End: centered in navbar (pure vertical movement)
+  const endCX = vw / 2
+  const endCY = HEADER_H / 2
 
   return {
     position: 'fixed' as const,
@@ -105,24 +114,26 @@ const travelingLogoStyle = computed(() => {
   }
 })
 
-// Real logo: invisible while traveling logo is active so there's no double
 const realLogoStyle = computed(() => ({
   opacity:    isTraveling.value ? 0 : 1,
   transition: 'opacity 80ms linear',
 }))
 
-// Nav items fade in with scroll progress; unclickable at near-zero opacity
-const navStyle = computed(() => ({
-  opacity:       isIndex.value ? scrollProgress.value : 1,
-  pointerEvents: (isIndex.value && scrollProgress.value < 0.1)
-    ? ('none' as const)
-    : ('auto' as const),
-}))
+const navStyle = computed(() => {
+  if (!isAuthenticated.value) return { opacity: 0, pointerEvents: 'none' as const }
+  if (!isIndex.value) return { opacity: 1 }
+  return {
+    opacity: scrollProgress.value,
+    pointerEvents: scrollProgress.value < 0.1 ? ('none' as const) : ('auto' as const),
+  }
+})
 </script>
 
 <template>
   <header class="header" :class="{ transparent: isIndex && !scrolled }">
     <div class="header-inner">
+
+      <!-- Left: user identity -->
       <div class="header-left">
         <NuxtLink
           v-if="isEventRoute"
@@ -131,7 +142,15 @@ const navStyle = computed(() => ({
         >
           ←
         </NuxtLink>
-        <NuxtLink to="/" class="wordmark">
+        <div class="header-user" :style="navStyle">
+          <img src="/avatar.webp" alt="" class="header-avatar" />
+          <span class="header-username label">a.falconer</span>
+        </div>
+      </div>
+
+      <!-- Center: logo -->
+      <div class="header-center">
+        <NuxtLink to="/" class="wordmark" @click="onLogoClick">
           <img
             ref="logoRef"
             src="/logo.png"
@@ -143,16 +162,18 @@ const navStyle = computed(() => ({
         </NuxtLink>
       </div>
 
+      <!-- Right: nav -->
       <nav class="header-nav" :style="navStyle">
         <NuxtLink to="/" class="nav-item label" :class="{ active: route.path === '/' }" @click="onIndexClick">Index</NuxtLink>
         <NuxtLink to="/profile" class="nav-item label" :class="{ active: route.path === '/profile' }">
-          Collection<span v-if="passCount > 0" class="pass-count">{{ passCount }}</span>
+          Archive<span v-if="passCount > 0" class="pass-count">{{ passCount }}</span>
         </NuxtLink>
+        <button class="nav-item nav-logout label" @click="handleLogout">Log out</button>
       </nav>
+
     </div>
   </header>
 
-  <!-- Traveling logo: fixed, scroll-driven, only active during hero transition -->
   <Teleport to="body">
     <img
       v-if="isTraveling && travelingLogoStyle"
@@ -185,11 +206,12 @@ const navStyle = computed(() => ({
   margin: 0 auto;
   padding: 0 var(--column-padding);
   height: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
 }
 
+/* ─── Left ───────────────────────────────────────────── */
 .header-left {
   display: flex;
   align-items: center;
@@ -205,6 +227,35 @@ const navStyle = computed(() => ({
   color: var(--color-text);
 }
 
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.header-username {
+  color: var(--color-text-secondary);
+  font-size: var(--text-label);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ─── Center ─────────────────────────────────────────── */
+.header-center {
+  display: flex;
+  justify-content: center;
+}
+
 .wordmark {
   display: flex;
   align-items: center;
@@ -216,9 +267,11 @@ const navStyle = computed(() => ({
   display: block;
 }
 
+/* ─── Right ──────────────────────────────────────────── */
 .header-nav {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-4);
 }
 
@@ -239,6 +292,19 @@ const navStyle = computed(() => ({
 .nav-item:hover,
 .nav-item.active {
   color: var(--color-text);
+}
+
+.nav-logout {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity var(--transition-subtle);
+}
+
+.nav-logout:hover {
+  opacity: 1;
 }
 
 .pass-count {
