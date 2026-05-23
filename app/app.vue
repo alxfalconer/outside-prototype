@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { isLight, toggle } = useTheme()
+</script>
+
 <template>
   <NuxtRouteAnnouncer />
 
@@ -19,9 +23,58 @@
   <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
 
   <AppFooter />
+
+  <button class="theme-toggle" :aria-label="isLight ? 'Switch to dark mode' : 'Switch to light mode'" @click="toggle">
+    <span class="theme-toggle-icon">{{ isLight ? '◐' : '◑' }}</span>
+  </button>
 </template>
 
 <style>
+/* ─── Global theme transition ───────────────────────── */
+*, *::before, *::after {
+  transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease, opacity 400ms ease;
+}
+
+/* Override: keep intentional motion transitions intact */
+.page-enter-active,
+.page-leave-active,
+.traveling-logo,
+.hero,
+.hero-video,
+.auth-gate,
+.auth-fade-leave-active {
+  transition: unset;
+}
+
+/* ─── Theme toggle ───────────────────────────────────── */
+.theme-toggle {
+  position: fixed;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  z-index: 1000;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 140ms ease, background-color 400ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.theme-toggle-icon {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  transition: color 400ms ease;
+}
+
+/* ─── Page transitions ──────────────────────────────── */
 .page-enter-active,
 .page-leave-active {
   transition: opacity var(--transition-fade);

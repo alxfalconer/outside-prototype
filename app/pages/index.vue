@@ -206,8 +206,6 @@ const FEED_POSTS: FeedPostData[] = [
             </div>
             <div class="auth-meta">
               <span class="auth-meta-item">Signal Area — New York City</span>
-              <span class="auth-meta-item">Status — Active</span>
-              <span class="auth-meta-item">Access — Restricted</span>
             </div>
           </div>
         </Transition>
@@ -424,8 +422,7 @@ const FEED_POSTS: FeedPostData[] = [
 
 /* ─── Intro section ─────────────────────────────────── */
 .intro-section {
-  padding: var(--space-7) 0;
-  padding-top: clamp(120px, 20vh, 220px);
+  padding: clamp(120px, 20vh, 220px) 0;
   max-width: 480px;
   margin: 0 auto;
   text-align: center;
@@ -700,8 +697,8 @@ const FEED_POSTS: FeedPostData[] = [
 
 .auth-enter {
   background: none;
-  border: none;
-  padding: 0 0 6px 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 12px;
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 0.55rem;
@@ -714,6 +711,7 @@ const FEED_POSTS: FeedPostData[] = [
 
 .auth-enter:hover {
   color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
 .auth-error {

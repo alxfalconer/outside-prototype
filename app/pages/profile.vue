@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatDate } from '~/utils/format'
+import type { GalleryItem } from '~/utils/gallery'
 
 const { passes } = usePasses()
 const { getEventById } = useEvents()
@@ -12,7 +13,7 @@ const userProfile = reactive({
   bio: 'Designer and writer based in New York. Interested in film, contemporary performance, and the architecture of cities. Attending since 2025.',
   website: 'www.falconer.work',
   joinedDate: 'March 2025',
-  avatarSrc: '/avatar.webp',
+  avatarSrc: '/my-raccoon.webp',
 })
 
 // ─── Edit modal ───────────────────────────────────────
@@ -83,6 +84,16 @@ const recentPasses = computed(() =>
     .sort((a, b) => new Date(b.collectedAt).getTime() - new Date(a.collectedAt).getTime())
     .slice(0, 5)
 )
+
+// ─── Media ────────────────────────────────────────────
+const selectedMedia = ref<GalleryItem | null>(null)
+
+function handleMediaKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') selectedMedia.value = null
+}
+
+onMounted(() => document.addEventListener('keydown', handleMediaKeydown))
+onUnmounted(() => document.removeEventListener('keydown', handleMediaKeydown))
 </script>
 
 <template>
@@ -179,15 +190,56 @@ const recentPasses = computed(() =>
         </p>
       </template>
 
-      <!-- Media tab — implied surface -->
+      <!-- Media tab -->
       <template v-else>
-        <div class="media-placeholder">
-          <p class="media-text mono">Event photos upload via on-site QR scan.</p>
-          <p class="media-subtext mono">Photos taken at events appear here, timestamped and linked to the event.</p>
+        <div class="media-masonry">
+          <button
+            v-for="(item, i) in demoGalleryItems"
+            :key="i"
+            class="media-masonry-item"
+            @click="selectedMedia = item"
+          >
+            <img :src="item.src" :alt="'Photo ' + (i + 1)" loading="lazy" />
+            <div class="media-overlay">
+              <span class="media-uploader mono">{{ item.uploader }}</span>
+              <span v-if="item.comments.length" class="media-comment-count mono">↳ {{ item.comments.length }}</span>
+            </div>
+          </button>
         </div>
       </template>
 
     </div>
+
+    <!-- Media lightbox -->
+    <Teleport to="body">
+      <Transition name="media-lightbox">
+        <div v-if="selectedMedia" class="media-lightbox" @click.self="selectedMedia = null">
+          <div class="media-lightbox-inner">
+            <div class="media-lightbox-image-wrap">
+              <img :src="selectedMedia.src" class="media-lightbox-image" alt="Photo" />
+            </div>
+            <div class="media-lightbox-panel">
+              <div class="media-lightbox-header">
+                <span class="media-lightbox-uploader mono">{{ selectedMedia.uploader }}</span>
+                <button class="media-lightbox-close label" @click="selectedMedia = null">✕</button>
+              </div>
+              <div class="media-lightbox-comments">
+                <div v-for="(comment, i) in selectedMedia.comments" :key="i" class="media-lightbox-comment">
+                  <span class="mlc-author mono">{{ comment.author }}</span>
+                  <p class="mlc-text">{{ comment.text }}</p>
+                  <span class="mlc-time mono">{{ comment.time }}</span>
+                </div>
+                <div v-if="selectedMedia.comments.length === 0" class="mlc-empty mono">No comments yet.</div>
+              </div>
+              <div class="media-comment-form">
+                <textarea class="media-comment-input" placeholder="Add a comment…" rows="2" />
+                <button class="media-comment-submit label">Post</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
 
     <!-- Edit profile modal -->
     <Teleport to="body">
@@ -285,9 +337,11 @@ const recentPasses = computed(() =>
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 30%;
   flex-shrink: 0;
   display: block;
   border: 1px solid var(--color-border);
+  transform: scale(1.35);
 }
 
 .profile-info {
@@ -486,24 +540,252 @@ const recentPasses = computed(() =>
   color: var(--color-text);
 }
 
-.media-placeholder {
-  padding: var(--space-5) 0;
+/* ─── Media masonry ─────────────────────────────────── */
+.media-masonry {
+  columns: 3;
+  column-gap: 4px;
+}
+
+.media-masonry-item {
+  break-inside: avoid;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 4px;
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.media-masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity var(--transition-subtle);
+}
+
+.media-masonry-item:hover img {
+  opacity: 0.88;
+}
+
+.media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 8px;
+  opacity: 0;
+  transition: opacity var(--transition-fade);
+}
+
+.media-masonry-item:hover .media-overlay {
+  opacity: 1;
+}
+
+.media-uploader {
+  font-size: 0.5625rem;
+  color: #f5f5f5;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.media-comment-count {
+  font-size: 0.5rem;
+  color: rgba(245, 245, 245, 0.6);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* ─── Media lightbox ────────────────────────────────── */
+.media-lightbox-enter-active {
+  transition: opacity 300ms var(--ease-out-quart);
+}
+.media-lightbox-leave-active {
+  transition: opacity 180ms ease;
+}
+.media-lightbox-enter-from,
+.media-lightbox-leave-to {
+  opacity: 0;
+}
+
+.media-lightbox-enter-active .media-lightbox-inner {
+  transition: opacity 300ms var(--ease-out-quart), transform 300ms var(--ease-out-quart);
+}
+.media-lightbox-leave-active .media-lightbox-inner {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.media-lightbox-enter-from .media-lightbox-inner {
+  opacity: 0;
+  transform: scale(0.97) translateY(10px);
+}
+.media-lightbox-leave-to .media-lightbox-inner {
+  opacity: 0;
+  transform: scale(0.97) translateY(6px);
+}
+
+.media-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-lightbox-inner {
+  display: flex;
+  align-items: stretch;
+  max-height: 90vh;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.media-lightbox-image-wrap {
+  flex: 0 0 auto;
+  background: #060606;
+}
+
+.media-lightbox-image {
+  display: block;
+  height: auto;
+  width: auto;
+  max-height: 90vh;
+  max-width: calc(100vw - 300px);
+}
+
+.media-lightbox-panel {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-border);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.media-lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.media-lightbox-uploader {
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.media-lightbox-close {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  transition: color var(--transition-subtle);
+}
+
+.media-lightbox-close:hover {
+  color: var(--color-text);
+}
+
+.media-lightbox-comments {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.media-lightbox-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mlc-author {
+  font-size: var(--text-label);
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.mlc-text {
+  font-size: var(--text-meta);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.mlc-time {
+  font-size: 0.5625rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
+
+.mlc-empty {
+  padding: var(--space-3);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
+
+.media-comment-form {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 
-.media-text {
-  font-size: var(--text-label);
-  color: var(--color-text-secondary);
-  letter-spacing: 0.04em;
+.media-comment-input {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+  padding: 8px 10px;
+  resize: none;
+  outline: none;
+  transition: border-color var(--transition-subtle);
 }
 
-.media-subtext {
-  font-size: var(--text-label);
+.media-comment-input::placeholder {
   color: var(--color-text-secondary);
   opacity: 0.5;
-  letter-spacing: 0.04em;
+}
+
+.media-comment-input:focus {
+  border-color: var(--color-text-secondary);
+}
+
+.media-comment-submit {
+  align-self: flex-end;
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-subtle), border-color var(--transition-subtle);
+}
+
+.media-comment-submit:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
 }
 
 /* ─── Responsive ────────────────────────────────────── */

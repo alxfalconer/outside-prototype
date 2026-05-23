@@ -97,8 +97,11 @@ const travelingLogoStyle = computed(() => {
   const startCX   = vw / 2
   const startCY   = vh / 2 - PHRASE_H / 2 - GAP - heroLogoH / 2
 
-  // End: centered in navbar (pure vertical movement)
-  const endCX = vw / 2
+  // End: left-aligned in navbar
+  const COLUMN_MAX     = 1080
+  const COLUMN_PADDING = 24
+  const contentLeft    = Math.max(COLUMN_PADDING, (vw - COLUMN_MAX) / 2 + COLUMN_PADDING)
+  const endCX = contentLeft + lw / 2
   const endCY = HEADER_H / 2
 
   return {
@@ -133,7 +136,7 @@ const navStyle = computed(() => {
   <header class="header" :class="{ transparent: isIndex && !scrolled }">
     <div class="header-inner">
 
-      <!-- Left: user identity -->
+      <!-- Left: logo -->
       <div class="header-left">
         <NuxtLink
           v-if="isEventRoute"
@@ -142,14 +145,6 @@ const navStyle = computed(() => {
         >
           ←
         </NuxtLink>
-        <div class="header-user" :style="navStyle">
-          <img src="/avatar.webp" alt="" class="header-avatar" />
-          <span class="header-username label">a.falconer</span>
-        </div>
-      </div>
-
-      <!-- Center: logo -->
-      <div class="header-center">
         <NuxtLink to="/" class="wordmark" @click="onLogoClick">
           <img
             ref="logoRef"
@@ -207,7 +202,7 @@ const navStyle = computed(() => {
   padding: 0 var(--column-padding);
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
 }
 
@@ -225,35 +220,6 @@ const navStyle = computed(() => {
 
 .back:hover {
   color: var(--color-text);
-}
-
-.header-user {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.header-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  border: 1px solid var(--color-border);
-  flex-shrink: 0;
-}
-
-.header-username {
-  color: var(--color-text-secondary);
-  font-size: var(--text-label);
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-/* ─── Center ─────────────────────────────────────────── */
-.header-center {
-  display: flex;
-  justify-content: center;
 }
 
 .wordmark {
