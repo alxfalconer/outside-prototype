@@ -24,8 +24,16 @@ const { isLight, toggle } = useTheme()
 
   <AppFooter />
 
-  <button class="theme-toggle" :aria-label="isLight ? 'Switch to dark mode' : 'Switch to light mode'" @click="toggle">
-    <span class="theme-toggle-icon">{{ isLight ? '◐' : '◑' }}</span>
+  <button
+    class="theme-toggle"
+    role="switch"
+    :aria-checked="isLight"
+    :aria-label="isLight ? 'Switch to dark mode' : 'Switch to light mode'"
+    @click="toggle"
+  >
+    <span class="theme-toggle-track">
+      <span class="theme-toggle-thumb" :class="{ active: isLight }" />
+    </span>
   </button>
 </template>
 
@@ -47,7 +55,9 @@ const { isLight, toggle } = useTheme()
 .hero,
 .hero-video,
 .auth-gate,
-.auth-fade-leave-active {
+.auth-fade-leave-active,
+.theme-toggle-thumb,
+.theme-toggle-track {
   transition: unset;
 }
 
@@ -57,26 +67,43 @@ const { isLight, toggle } = useTheme()
   bottom: var(--space-3);
   right: var(--space-3);
   z-index: 1000;
-  background: var(--color-surface-raised);
-  border: 1px solid var(--color-border);
-  width: 36px;
-  height: 36px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border-color 140ms ease, background-color 400ms ease;
 }
 
-.theme-toggle:hover {
+.theme-toggle-track {
+  display: flex;
+  align-items: center;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  position: relative;
+  transition: background 300ms ease, border-color 300ms ease;
+}
+
+.theme-toggle:hover .theme-toggle-track {
   border-color: var(--color-text-secondary);
 }
 
-.theme-toggle-icon {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-  line-height: 1;
-  transition: color 400ms ease;
+.theme-toggle-thumb {
+  position: absolute;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+  transition: transform 300ms ease, background 300ms ease;
+}
+
+.theme-toggle-thumb.active {
+  transform: translateX(16px);
+  background: var(--color-text);
 }
 
 /* ─── Page transitions ──────────────────────────────── */
