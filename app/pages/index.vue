@@ -18,8 +18,8 @@ async function handleLogin() {
   }
   const ok = login(loginEmail.value, loginPassword.value)
   if (ok) {
-    await new Promise(r => setTimeout(r, 2200))
-    document.getElementById('intro-section')?.scrollIntoView({ behavior: 'smooth' })
+    await nextTick()
+    window.scrollTo({ top: SCROLL_END, behavior: 'smooth' })
   }
 }
 
@@ -63,6 +63,16 @@ const viewportH = ref(0)
 const viewportW = ref(0)
 
 const progress = computed(() => Math.min(1, scrollY.value / SCROLL_END))
+
+const heroCopyFullStyle = computed(() => ({
+  opacity: Math.max(0, 1 - progress.value * 3),
+  pointerEvents: 'none' as const,
+}))
+
+const heroCopyContainedStyle = computed(() => ({
+  opacity: Math.min(1, Math.max(0, (progress.value - 0.5) * 2)),
+  pointerEvents: 'none' as const,
+}))
 
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
 
@@ -174,7 +184,17 @@ const FEED_POSTS: FeedPostData[] = [
           :style="{ opacity: isAuthenticated ? 1 : 0.7, filter: isAuthenticated ? 'none' : 'blur(32px)', transition: 'opacity 1200ms ease, filter 1200ms ease' }"
         />
         <div class="hero-fade" />
-        <p class="hero-headline">Something is happening.</p>
+
+        <!-- Full-screen copy: logo era + "Something is happening." -->
+        <div class="hero-copy hero-copy-full" :style="heroCopyFullStyle">
+          <p class="hero-headline">Something is happening.</p>
+        </div>
+
+        <!-- Contained copy: "Presence leaves a record." -->
+        <div class="hero-copy hero-copy-contained" :style="heroCopyContainedStyle">
+          <p class="hero-presence-lead">Presence leaves a record.</p>
+          <p class="hero-presence-sub">Collect experiences across New York City.</p>
+        </div>
 
         <!-- Auth gate — overlaid on hero when unauthenticated -->
         <Transition name="auth-fade">
@@ -213,12 +233,6 @@ const FEED_POSTS: FeedPostData[] = [
     </div>
 
     <div v-show="isAuthenticated" id="index-content" class="page-inner">
-
-      <!-- Preface -->
-      <div id="intro-section" class="intro-section">
-        <p class="intro-lead">Presence leaves a record.</p>
-        <p class="intro-sub">Collect experiences across New York City.</p>
-      </div>
 
       <!-- Page header -->
       <div id="event-index" class="page-header">
@@ -391,24 +405,55 @@ const FEED_POSTS: FeedPostData[] = [
   pointer-events: none;
 }
 
-.hero-headline {
+.hero-copy {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  pointer-events: none;
+  text-align: center;
+  padding: 0 var(--column-padding);
+}
+
+.hero-copy-contained {
+  align-items: flex-start;
+  justify-content: flex-end;
+  text-align: left;
+  padding: 0 var(--column-padding) var(--column-padding);
+}
+
+.hero-headline {
   margin: 0;
-  padding: 0;
   white-space: nowrap;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: clamp(0.5rem, 0.7vw, 0.75rem);
   font-weight: 500;
-  line-height: 0.93;
   letter-spacing: -0.02em;
-  text-align: center;
   color: rgba(255, 255, 255, 0.65);
   -webkit-font-smoothing: antialiased;
-  pointer-events: none;
+}
+
+.hero-presence-lead {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: rgba(255, 255, 255, 0.92);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero-presence-sub {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .page-inner {
@@ -418,34 +463,6 @@ const FEED_POSTS: FeedPostData[] = [
   max-width: var(--column-max);
   margin: 0 auto;
   padding: var(--space-4) var(--column-padding) var(--space-7);
-}
-
-/* ─── Intro section ─────────────────────────────────── */
-.intro-section {
-  padding: clamp(120px, 20vh, 220px) 0;
-  max-width: 480px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.intro-lead {
-  font-family: var(--font-sans);
-  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  color: var(--color-text);
-  margin-bottom: var(--space-2);
-}
-
-.intro-sub {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
-  color: var(--color-text-secondary);
-  opacity: 0.7;
 }
 
 /* ─── Page header ───────────────────────────────────── */
@@ -639,7 +656,7 @@ const FEED_POSTS: FeedPostData[] = [
 
 .auth-body {
   position: absolute;
-  top: 56%;
+  top: 53%;
   left: 50%;
   transform: translateX(-50%);
   width: min(320px, calc(100% - 48px));
@@ -697,7 +714,7 @@ const FEED_POSTS: FeedPostData[] = [
 
 .auth-enter {
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: none;
   padding: 5px 12px;
   cursor: pointer;
   font-family: var(--font-mono);
@@ -711,7 +728,6 @@ const FEED_POSTS: FeedPostData[] = [
 
 .auth-enter:hover {
   color: rgba(255, 255, 255, 0.95);
-  border-color: rgba(255, 255, 255, 0.55);
 }
 
 .auth-error {
