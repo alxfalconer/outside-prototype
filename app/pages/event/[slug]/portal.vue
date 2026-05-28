@@ -146,6 +146,7 @@ const mockThreads = computed(() =>
 const galleryPhotos = computed((): GalleryItem[] => isPast.value ? demoGalleryItems : [])
 
 const selectedPhoto = ref<GalleryItem | null>(null)
+const loadedImages  = reactive(new Set<number>())
 
 // ─── Official recordings ──────────────────────────────
 const hasRecording = computed(() => isPast.value && !!event.value)
@@ -252,35 +253,6 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
         <!-- Unlocked portal content -->
         <template v-else>
 
-          <!-- Gallery -->
-          <div class="portal-block">
-            <div class="gallery-header">
-              <h3 class="block-title label">Gallery</h3>
-              <span class="gallery-note mono">
-                {{ isPast ? galleryPhotos.length + ' photos' : 'Photos upload via on-site QR' }}
-              </span>
-            </div>
-            <div v-if="isPast" class="gallery-masonry">
-              <button
-                v-for="(item, i) in galleryPhotos"
-                :key="i"
-                class="gallery-masonry-item"
-                @click="selectedPhoto = item"
-              >
-                <img :src="item.src" :alt="'Gallery photo ' + (i + 1)" loading="lazy" />
-                <div class="photo-overlay">
-                  <span class="photo-uploader mono">{{ item.uploader }}</span>
-                  <span v-if="item.comments.length" class="photo-comment-count mono">↳ {{ item.comments.length }}</span>
-                </div>
-              </button>
-            </div>
-            <div v-else class="gallery-empty">
-              <span class="mono gallery-empty-text">Photos will appear here during and after the event.</span>
-            </div>
-          </div>
-
-          <BaseDivider />
-
           <!-- Threads -->
           <div class="portal-block">
             <h3 class="block-title label">
@@ -297,6 +269,42 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
                 <p class="thread-body">{{ thread.content }}</p>
                 <span class="thread-replies mono">↳ {{ thread.replies }} {{ thread.replies === 1 ? 'reply' : 'replies' }}</span>
               </article>
+            </div>
+          </div>
+
+          <BaseDivider />
+
+          <!-- Gallery -->
+          <div class="portal-block">
+            <div class="gallery-header">
+              <h3 class="block-title label">Gallery</h3>
+              <span class="gallery-note mono">
+                {{ isPast ? galleryPhotos.length + ' photos' : 'Photos upload via on-site QR' }}
+              </span>
+            </div>
+            <div v-if="isPast" class="gallery-masonry">
+              <button
+                v-for="(item, i) in galleryPhotos"
+                :key="i"
+                class="gallery-masonry-item"
+                @click="selectedPhoto = item"
+              >
+                <div class="img-skeleton" :class="{ loaded: loadedImages.has(i) }" />
+                <img
+                  :src="item.src"
+                  :alt="'Gallery photo ' + (i + 1)"
+                  loading="lazy"
+                  :class="{ 'img-loaded': loadedImages.has(i) }"
+                  @load="loadedImages.add(i)"
+                />
+                <div class="photo-overlay">
+                  <span class="photo-uploader mono">{{ item.uploader }}</span>
+                  <span v-if="item.comments.length" class="photo-comment-count mono">↳ {{ item.comments.length }}</span>
+                </div>
+              </button>
+            </div>
+            <div v-else class="gallery-empty">
+              <span class="mono gallery-empty-text">Photos will appear here during and after the event.</span>
             </div>
           </div>
 
@@ -765,17 +773,48 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   background: none;
   cursor: pointer;
   overflow: hidden;
+  min-height: 120px;
 }
 
 .gallery-masonry-item img {
   width: 100%;
   height: auto;
   display: block;
-  transition: opacity var(--transition-subtle);
+  opacity: 0;
+  transition: opacity 400ms ease;
 }
 
-.gallery-masonry-item:hover img {
+.gallery-masonry-item img.img-loaded {
+  opacity: 1;
+}
+
+.gallery-masonry-item:hover img.img-loaded {
   opacity: 0.88;
+}
+
+/* ─── Skeleton ──────────────────────────────────────── */
+.img-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    rgba(255, 255, 255, 0.04) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 300% 100%;
+  animation: skeleton-shimmer 1.6s ease infinite;
+  transition: opacity 300ms ease;
+}
+
+.img-skeleton.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }
 
 .photo-overlay {
@@ -1000,8 +1039,6 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 
 .gallery-empty {
   padding: var(--space-5) 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .gallery-empty-text {

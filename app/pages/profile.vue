@@ -5,7 +5,7 @@ import type { GalleryItem } from '~/utils/gallery'
 const { passes } = usePasses()
 const { getEventById } = useEvents()
 
-const activeTab = ref<'upcoming' | 'archive' | 'media'>('upcoming')
+const activeTab = ref<'upcoming' | 'archive' | 'media' | 'field'>('upcoming')
 
 const userProfile = reactive({
   username: 'a.falconer',
@@ -149,64 +149,82 @@ onUnmounted(() => document.removeEventListener('keydown', handleMediaKeydown))
         <button class="tab label" :class="{ active: activeTab === 'media' }" @click="activeTab = 'media'">
           Media
         </button>
+        <button class="tab label" :class="{ active: activeTab === 'field' }" @click="activeTab = 'field'">
+          Field
+        </button>
       </div>
 
-      <!-- Upcoming tab -->
-      <template v-if="activeTab === 'upcoming'">
-        <div v-if="upcomingPasses.length === 0" class="empty-archive">
-          <p class="empty-text mono">No upcoming events.</p>
-          <NuxtLink to="/" class="empty-link label">Browse events →</NuxtLink>
-        </div>
-        <div v-else class="passes-grid passes-grid--upcoming">
-          <NuxtLink
-            v-for="pass in upcomingPasses"
-            :key="pass.id"
-            :to="getEventById(pass.eventId) ? `/event/${getEventById(pass.eventId)!.slug}/portal` : '/'"
-            class="pass-link"
-          >
-            <PassArtifact :pass="pass" :archiveMode="false" />
-          </NuxtLink>
-        </div>
-      </template>
+      <!-- Tab content -->
+      <Transition name="tab-panel" mode="out-in">
+        <div :key="activeTab" class="tab-panel">
 
-      <!-- Archive tab -->
-      <template v-else-if="activeTab === 'archive'">
-        <div v-if="pastPasses.length === 0" class="empty-archive">
-          <p class="empty-text mono">No events attended yet.</p>
-          <NuxtLink to="/" class="empty-link label">Browse events →</NuxtLink>
-        </div>
-        <div v-else class="passes-grid">
-          <NuxtLink
-            v-for="pass in pastPasses"
-            :key="pass.id"
-            :to="getEventById(pass.eventId) ? `/event/${getEventById(pass.eventId)!.slug}/portal` : '/'"
-            class="pass-link"
-          >
-            <PassArtifact :pass="pass" :archiveMode="true" />
-          </NuxtLink>
-        </div>
-        <p v-if="pastPasses.length > 0 && pastPasses.length < 5" class="archive-note mono">
-          Your archive grows with every event attended.
-        </p>
-      </template>
-
-      <!-- Media tab -->
-      <template v-else>
-        <div class="media-masonry">
-          <button
-            v-for="(item, i) in demoGalleryItems"
-            :key="i"
-            class="media-masonry-item"
-            @click="selectedMedia = item"
-          >
-            <img :src="item.src" :alt="'Photo ' + (i + 1)" loading="lazy" />
-            <div class="media-overlay">
-              <span class="media-uploader mono">{{ item.uploader }}</span>
-              <span v-if="item.comments.length" class="media-comment-count mono">↳ {{ item.comments.length }}</span>
+          <!-- Upcoming -->
+          <template v-if="activeTab === 'upcoming'">
+            <div v-if="upcomingPasses.length === 0" class="empty-archive">
+              <p class="empty-text mono">No upcoming events.</p>
+              <NuxtLink to="/" class="empty-link label">Browse events →</NuxtLink>
             </div>
-          </button>
+            <div v-else class="passes-grid passes-grid--upcoming">
+              <NuxtLink
+                v-for="(pass, i) in upcomingPasses"
+                :key="pass.id"
+                :style="{ '--i': i }"
+                :to="getEventById(pass.eventId) ? `/event/${getEventById(pass.eventId)!.slug}/portal` : '/'"
+                class="pass-link"
+              >
+                <PassArtifact :pass="pass" :archiveMode="false" />
+              </NuxtLink>
+            </div>
+          </template>
+
+          <!-- Archive -->
+          <template v-else-if="activeTab === 'archive'">
+            <div v-if="pastPasses.length === 0" class="empty-archive">
+              <p class="empty-text mono">No events attended yet.</p>
+              <NuxtLink to="/" class="empty-link label">Browse events →</NuxtLink>
+            </div>
+            <div v-else class="passes-grid">
+              <NuxtLink
+                v-for="(pass, i) in pastPasses"
+                :key="pass.id"
+                :style="{ '--i': i }"
+                :to="getEventById(pass.eventId) ? `/event/${getEventById(pass.eventId)!.slug}/portal` : '/'"
+                class="pass-link"
+              >
+                <PassArtifact :pass="pass" :archiveMode="true" />
+              </NuxtLink>
+            </div>
+            <p v-if="pastPasses.length > 0 && pastPasses.length < 5" class="archive-note mono">
+              Your archive grows with every event attended.
+            </p>
+          </template>
+
+          <!-- Media -->
+          <template v-else-if="activeTab === 'media'">
+            <div class="media-masonry">
+              <button
+                v-for="(item, i) in demoGalleryItems"
+                :key="i"
+                :style="{ '--i': i }"
+                class="media-masonry-item"
+                @click="selectedMedia = item"
+              >
+                <img :src="item.src" :alt="'Photo ' + (i + 1)" loading="lazy" />
+                <div class="media-overlay">
+                  <span class="media-uploader mono">{{ item.uploader }}</span>
+                  <span v-if="item.comments.length" class="media-comment-count mono">↳ {{ item.comments.length }}</span>
+                </div>
+              </button>
+            </div>
+          </template>
+
+          <!-- Field -->
+          <template v-else-if="activeTab === 'field'">
+            <CulturalField />
+          </template>
+
         </div>
-      </template>
+      </Transition>
 
     </div>
 
@@ -456,6 +474,46 @@ onUnmounted(() => document.removeEventListener('keydown', handleMediaKeydown))
 .strip-item {
   width: 56px;
   flex-shrink: 0;
+}
+
+/* ─── Tab panel transitions ─────────────────────────── */
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tab-panel-enter-active {
+  transition: opacity 200ms ease;
+}
+.tab-panel-leave-active {
+  transition: opacity 100ms ease;
+}
+.tab-panel-enter-from,
+.tab-panel-leave-to {
+  opacity: 0;
+}
+
+/* Staggered cascade for pass cards — opacity only (transform used for rotation) */
+.tab-panel-enter-active .pass-link {
+  animation: cascade-fade 320ms ease both;
+  animation-delay: calc(var(--i, 0) * 45ms + 60ms);
+}
+
+/* Staggered cascade for media items — opacity + lift */
+.tab-panel-enter-active .media-masonry-item {
+  animation: cascade-lift 340ms ease both;
+  animation-delay: calc(var(--i, 0) * 35ms + 60ms);
+}
+
+@keyframes cascade-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes cascade-lift {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Tabs ──────────────────────────────────────────── */

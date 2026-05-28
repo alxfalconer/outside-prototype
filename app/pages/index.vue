@@ -183,7 +183,7 @@ const FEED_POSTS: FeedPostData[] = [
           playsinline
           :style="{ opacity: isAuthenticated ? 1 : 0.7, filter: isAuthenticated ? 'none' : 'blur(32px)', transition: 'opacity 1200ms ease, filter 1200ms ease' }"
         />
-        <div class="hero-fade" />
+        <div class="hero-fade" :style="{ opacity: isAuthenticated ? 0 : 1, transition: 'opacity 1200ms ease' }" />
 
         <!-- Full-screen copy: logo era + "Something is happening." -->
         <div class="hero-copy hero-copy-full" :style="heroCopyFullStyle">
