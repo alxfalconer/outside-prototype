@@ -411,8 +411,8 @@ const FEED_POSTS: FeedPostData[] = [
   left: 0;
   right: 0;
   bottom: 0;
-  height: 40%;
-  background: linear-gradient(to bottom, transparent 20%, rgba(8, 8, 8, 0.98) 80%, rgb(8, 8, 8));
+  height: 25%;
+  background: linear-gradient(to bottom, transparent, rgba(8, 8, 8, 0.5));
   pointer-events: none;
 }
 
