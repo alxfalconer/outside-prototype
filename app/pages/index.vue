@@ -184,6 +184,7 @@ const FEED_POSTS: FeedPostData[] = [
           :style="{ opacity: isAuthenticated ? 1 : 0.7, filter: isAuthenticated ? 'none' : 'blur(32px)', transition: 'opacity 1200ms ease, filter 1200ms ease' }"
         />
         <div class="hero-fade" :style="{ opacity: isAuthenticated ? 0 : 1, transition: 'opacity 1200ms ease' }" />
+        <div class="hero-bottom-gradient" />
 
         <!-- Full-screen copy: logo era + "Something is happening." -->
         <div class="hero-copy hero-copy-full" :style="heroCopyFullStyle">
@@ -405,6 +406,16 @@ const FEED_POSTS: FeedPostData[] = [
   pointer-events: none;
 }
 
+.hero-bottom-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent 20%, rgba(8, 8, 8, 0.98) 80%, rgb(8, 8, 8));
+  pointer-events: none;
+}
+
 .hero-copy {
   position: absolute;
   inset: 0;
@@ -439,7 +450,7 @@ const FEED_POSTS: FeedPostData[] = [
 .hero-presence-lead {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
   font-weight: 400;
   line-height: 1.04;
   letter-spacing: -0.03em;
