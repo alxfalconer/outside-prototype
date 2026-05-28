@@ -533,8 +533,9 @@ onMounted(() => {
   --field-orange: #c47c2e;
   background: #0c0c0c;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
+  border-radius: 5px;
   overflow: hidden;
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.04), 0 1px 4px rgba(255, 255, 255, 0.03);
 }
 
 .field-rule {
