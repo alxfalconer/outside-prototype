@@ -1381,6 +1381,195 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </div>
           </div>
 
+          <!-- Accretion: The Metaphor -->
+          <div class="entry" id="accretion-metaphor">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Study</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('accretion-metaphor')">Accretion Layer — The Metaphor</h3>
+            <div class="entry-body">
+              <p>Accretion is how things become what they are through time and deposit. Stalactites form drop by drop, mineral on mineral, over centuries. Coral reefs build from successive generations of organism and sediment. Sedimentary rock is a record of everything the environment laid down, compressed into readable strata.</p>
+              <p>A cultural field accretes the same way. Every attended event leaves a deposit. The deposit falls in a specific position — determined by what it was and when it happened. Over time, deposits build. Some columns grow thick. Others stay thin. Some never form at all.</p>
+              <p>The accretion field shows the cross-section of your record — not as a map of where you've been, but as a geological record of what you've attended, and for how long.</p>
+              <p>The topographic map shows space: where in the city does your cultural life live? The accretion field shows time: how did this field form? What was laid down first? What has been accreting steadily? What appeared recently and is still building? They are complementary views of the same record. The topographic map is the overhead view of the terrain. The accretion field is the core sample pulled from it.</p>
+            </div>
+          </div>
+
+          <!-- Accretion: Visual Encoding -->
+          <div class="entry" id="accretion-encoding">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Study</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('accretion-encoding')">Accretion Layer — Visual Encoding</h3>
+            <div class="entry-body">
+              <p>Each element in the cross-section corresponds to a dimension of the record. Time runs from base (oldest) to surface (now). Columns represent cultural categories. Density represents attendance volume per period.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Column</span>
+                  <span class="lang-def">A cultural category — film, sound, performance, theater.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Column height</span>
+                  <span class="lang-def">Total depth of attendance in that category.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Deposit density</span>
+                  <span class="lang-def">Attendance volume in that time band.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Base</span>
+                  <span class="lang-def">Oldest attendance on record.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Surface</span>
+                  <span class="lang-def">Most recent attendance — the field as it stands now.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Dense upper layers</span>
+                  <span class="lang-def">Active, current accumulation.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Dense lower layers</span>
+                  <span class="lang-def">Long-established, foundational.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Gap in column</span>
+                  <span class="lang-def">A period of dormancy in that category.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Thin isolated column</span>
+                  <span class="lang-def">Attended rarely. Never built into a formation.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Surface growth rate</span>
+                  <span class="lang-def">Direction of Drift — which columns are currently building.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accretion: Example Visualization -->
+          <div class="entry" id="accretion-visualization">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Example</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('accretion-visualization')">Accretion Layer — Example</h3>
+            <div class="entry-body">
+              <p>Three active categories at different stages of formation, one dormant, four others near-absent. Time runs from base (oldest) to surface (now).</p>
+            </div>
+            <div class="topo-map" aria-label="Accretion field cross-section example">
+              <div class="topo-header">
+                <span class="topo-title">ACCRETION FIELD</span>
+                <span class="topo-period">2021–2025</span>
+              </div>
+              <div class="topo-body">
+                <div class="acc-field-wrap">
+                  <div class="acc-axis">
+                    <span class="acc-axis-label">now</span>
+                    <span class="acc-axis-label">2025</span>
+                    <span class="acc-axis-label acc-axis-label--mid">2024</span>
+                    <span class="acc-axis-label acc-axis-label--mid">2023</span>
+                    <span class="acc-axis-label acc-axis-label--mid">2022</span>
+                    <span class="acc-axis-label acc-axis-label--old">2021</span>
+                  </div>
+                  <div class="acc-field">
+                    <div class="acc-surface-line">
+                      <span class="acc-surface-label">─ surface</span>
+                    </div>
+                    <pre class="acc-pre">██████  ░░░░░  ░░░   ·    ·    ·                        ·
+██████  ░░░░░  ░░    ·    ·    ·                        ·
+█████▓  ▒▒▒▒   ░·    ·                                  ·
+█████▓  ▒▒▒▒▒  ░░    ·    ·
+█████▓  ▒▒▒▒   ░     ·
+████▓▓  ▒▒▒    ·     ·
+▓▓▓▓▓▓  ░░░░   ·     ·    ·
+▓▓▓▓▓▓  ░░░    ·
+▓▓▓▓▓   ░      ·
+▒▒▒▒▒▒
+▒▒▒▒▒▒
+▒▒▒▒▒
+░░░░░░
+░░░░░
+·</pre>
+                    <div class="acc-base-line">
+                      <span class="acc-surface-label">─ base</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="acc-columns">
+                  <div class="acc-col-group">
+                    <span class="acc-col-name">FILM</span>
+                    <span class="acc-col-venues">Metrograph · Anthology · Film Arch.</span>
+                  </div>
+                  <div class="acc-col-group">
+                    <span class="acc-col-name">SOUND</span>
+                    <span class="acc-col-venues">Pioneer Works · Issue Project</span>
+                  </div>
+                  <div class="acc-col-group">
+                    <span class="acc-col-name">PERF</span>
+                    <span class="acc-col-venues">St. Ann's Warehouse</span>
+                  </div>
+                  <div class="acc-col-group">
+                    <span class="acc-col-name">THTR</span>
+                    <span class="acc-col-venues">&nbsp;</span>
+                  </div>
+                  <div class="acc-col-group">
+                    <span class="acc-col-name">DANCE</span>
+                    <span class="acc-col-venues">&nbsp;</span>
+                  </div>
+                  <div class="acc-col-group acc-col-group--dim">
+                    <span class="acc-col-name">LECT</span>
+                    <span class="acc-col-venues">&nbsp;</span>
+                  </div>
+                  <div class="acc-col-group acc-col-group--dim">
+                    <span class="acc-col-name">VISL</span>
+                    <span class="acc-col-venues">&nbsp;</span>
+                  </div>
+                  <div class="acc-col-group acc-col-group--dim">
+                    <span class="acc-col-name">OTHER</span>
+                    <span class="acc-col-venues">&nbsp;</span>
+                  </div>
+                </div>
+              </div>
+              <div class="topo-footer">
+                <span class="topo-key-label">DENSITY</span>
+                <span class="topo-key-item"><span class="topo-key-glyph">·</span> 1</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--1">░</span> 2–4</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--2">▒</span> 5–9</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--3">▓</span> 10–19</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--4">█</span> 20+</span>
+              </div>
+            </div>
+            <div class="entry-body" style="margin-top: 32px;">
+              <p>The film column is the foundational formation — it has been accreting since the record began. The sound column is more recent: it doesn't appear until 2023, but its growth rate in the upper layers is visible. It is building quickly toward the surface. Performance is sporadic — thin deposits appearing and disappearing across seasons, never building into a coherent formation. Theater, dance, lectures, visual art: barely present. Single marks, no continuity.</p>
+              <p>The surface is the current field. The base is where it started. The distance between them is the record.</p>
+            </div>
+          </div>
+
+          <!-- Accretion: Sub-sections -->
+          <div class="entry" id="accretion-subsections">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Study</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('accretion-subsections')">Accretion Layer — Sub-section Design</h3>
+            <div class="entry-body">
+              <p><em>Affinities — Your deepest formations.</em> The columns with the most accumulated material. Ranked by total depth: column name, date the column opened, date of most recent deposit, and a one-line observation about whether it is currently active or dormant.</p>
+              <p><em>Drift — What the surface layer shows.</em> The field redraws showing only the most recent time band. Some columns are actively receiving deposits; others have gone dormant. The surface layer is separated from the rest of the field. Below it, a faint trace of the previous band. You can see which columns are live and which are not.</p>
+              <p><em>Signals — New formations appearing.</em> Columns with recent deposits in categories with little prior accumulation. The column was bare last season. Now it has two or three deposits. New formations are rendered distinctly — lighter, less settled, at the surface edge.</p>
+              <p><em>Routes — Columns that accrete together.</em> Categories that consistently receive deposits in the same time band. Film and sound appearing in the same weeks, repeatedly, over two years. The co-deposit pattern shows as horizontal banding across two columns sharing the same active rows. Routes expressed as temporal co-occurrence rather than geographic movement.</p>
+              <p><em>Periphery — The thin columns at the field's edge.</em> Sorted far right: all categories with only one or two deposits, never building a formation. Named, dated, present in the record but not part of the field.</p>
+            </div>
+          </div>
+
         </section>
 
         <!-- ─── 06–07 Pending sections ─────────────────── -->
@@ -2069,6 +2258,104 @@ section {
 .topo-key-glyph--3 { opacity: 0.75; }
 .topo-key-glyph--4 { opacity: 0.9; }
 
+/* ─── Accretion field ───────────────────────────────────── */
+.acc-field-wrap {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.acc-axis {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  padding-right: 12px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.acc-axis-label {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+  text-align: right;
+}
+
+.acc-axis-label--mid { opacity: 0.2; }
+.acc-axis-label--old { opacity: 0.15; }
+
+.acc-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.acc-surface-line,
+.acc-base-line {
+  padding: 4px 0;
+}
+
+.acc-surface-label {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  opacity: 0.25;
+}
+
+.acc-pre {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.62;
+  margin: 0;
+  white-space: pre;
+  letter-spacing: 0.05em;
+  overflow-x: auto;
+}
+
+.acc-columns {
+  display: flex;
+  gap: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-left: 48px;
+  overflow-x: auto;
+}
+
+.acc-col-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+.acc-col-group--dim .acc-col-name {
+  opacity: 0.25;
+}
+
+.acc-col-name {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.45;
+}
+
+.acc-col-venues {
+  font-family: var(--font-sans);
+  font-size: 0.48rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+}
+
 /* ─── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .fn-layout {
@@ -2106,6 +2393,16 @@ section {
   }
   .topo-footer {
     gap: 10px;
+  }
+  .acc-pre {
+    font-size: 0.5rem;
+  }
+  .acc-columns {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .acc-col-group {
+    min-width: 56px;
   }
 }
 </style>
