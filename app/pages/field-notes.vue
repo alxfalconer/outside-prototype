@@ -1570,6 +1570,165 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </div>
           </div>
 
+          <!-- Nautical Drift: The Metaphor -->
+          <div class="entry" id="drift-metaphor">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Study</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('drift-metaphor')">Nautical Drift — The Metaphor</h3>
+            <div class="entry-body">
+              <p>A nautical drift chart doesn't show where a ship is. It shows where the current is taking it. Vectors plotted across a chart surface reveal the direction and velocity of water movement at every point in the field — a picture not of position, but of force in motion.</p>
+              <p>The cultural drift chart works the same way. Your attendance record is not just a position — it is a system of forces currently in motion. Some categories are building momentum. Some are losing it. Some are stable. The drift chart makes these forces visible simultaneously, as a field of vectors, each one showing where something is moving and how fast.</p>
+              <p>The topographic map answers: where is your cultural life? The accretion field answers: how did it form? The drift chart answers: where is it going?</p>
+              <p>It is the only view that points toward the future rather than the past.</p>
+            </div>
+          </div>
+
+          <!-- Nautical Drift: Visual Encoding -->
+          <div class="entry" id="drift-encoding">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Study</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('drift-encoding')">Nautical Drift — Visual Encoding</h3>
+            <div class="entry-body">
+              <p>The chart plots a two-axis cultural space. Vectors at each point show the direction and strength of current drift. The overall pattern of vectors — laminar or turbulent, slow or fast, eastward or north — is the reading.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">X-axis</span>
+                  <span class="lang-def">Canonical / established → experimental / emerging.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Y-axis</span>
+                  <span class="lang-def">Concentrated / deep → ranging / broad.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Vector direction</span>
+                  <span class="lang-def">Where that part of the field is currently moving.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Vector length</span>
+                  <span class="lang-def">Rate of change — how fast the drift is moving.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Laminar flow</span>
+                  <span class="lang-def">Consistent vectors pointing the same direction — sustained, settled drift.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Turbulence</span>
+                  <span class="lang-def">Conflicting vectors — a period of transition or reversal.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Still water</span>
+                  <span class="lang-def">Dot with no vector — no measurable movement in that zone.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Current label</span>
+                  <span class="lang-def">A named cultural force driving a particular vector cluster.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nautical Drift: Example Visualization -->
+          <div class="entry" id="drift-visualization">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Example</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('drift-visualization')">Nautical Drift — Example</h3>
+            <div class="entry-body">
+              <p>A field in active eastward drift — moving toward experimental territory — with a developing northeast current in the upper quadrant. Still water in the lower-left.</p>
+            </div>
+            <div class="topo-map" aria-label="Nautical drift chart example">
+              <div class="topo-header">
+                <span class="topo-title">DRIFT CHART</span>
+                <span class="topo-period">current season · 2025</span>
+              </div>
+              <div class="topo-body">
+                <div class="drift-field-wrap">
+                  <div class="drift-y-labels">
+                    <span class="drift-axis-label">ranging</span>
+                    <span class="drift-axis-label drift-axis-label--dim">concentrated</span>
+                  </div>
+                  <div class="drift-field-inner">
+                    <pre class="drift-pre">·      ·      ·      ↗      ↑      ↑      ·
+·      ·     ──►    ──►    ─↗    ━━↑     ↑
+·     ─►    ──►    ━━►    ━━►   ━━↗      ·
+·      ·     ─►    ──►    ──►     ·      ·
+·      ·      ·     ─►     ─►     ·      ·
+·      ·      ·      ·      ·      ·      ·</pre>
+                    <div class="drift-x-labels">
+                      <span class="drift-axis-label">canonical</span>
+                      <span class="drift-axis-label drift-axis-label--dim">experimental</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="drift-readings">
+                  <p class="drift-section-head">Active currents</p>
+                  <div class="drift-reading">
+                    <span class="drift-reading-arrow drift-reading-arrow--strong">━━►</span>
+                    <span class="drift-reading-name">Sound / experimental</span>
+                    <span class="drift-reading-note">Strong eastward. The dominant current. Building for two seasons.</span>
+                  </div>
+                  <div class="drift-reading">
+                    <span class="drift-reading-arrow drift-reading-arrow--mod">──►</span>
+                    <span class="drift-reading-name">Film</span>
+                    <span class="drift-reading-note">Moderate, steady. Holding established ground while expanding.</span>
+                  </div>
+                  <div class="drift-reading">
+                    <span class="drift-reading-arrow">━━↑</span>
+                    <span class="drift-reading-name">Venue scale</span>
+                    <span class="drift-reading-note">Developing northward. Attendance ranging more broadly this season.</span>
+                  </div>
+                  <p class="drift-section-head">Still water</p>
+                  <div class="drift-reading">
+                    <span class="drift-reading-arrow drift-reading-arrow--still">─►</span>
+                    <span class="drift-reading-name">Theater</span>
+                    <span class="drift-reading-note">Minimal movement. No measurable current.</span>
+                  </div>
+                  <div class="drift-reading">
+                    <span class="drift-reading-arrow drift-reading-arrow--still">·</span>
+                    <span class="drift-reading-name">Dance, lectures, visual</span>
+                    <span class="drift-reading-note">Still water. These zones are not in motion.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="topo-footer">
+                <span class="topo-key-label">KEY</span>
+                <span class="topo-key-item"><span class="topo-key-glyph">·</span> still</span>
+                <span class="topo-key-item"><span class="topo-key-glyph">─►</span> slight</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--2">──►</span> moderate</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--4">━━►</span> strong</span>
+              </div>
+            </div>
+            <div class="entry-body" style="margin-top: 32px;">
+              <p>The dominant current runs eastward through the middle of the field — toward experimental, emerging territory. It is strongest in the central zone and weakens at the edges. In the upper-right quadrant, the current bends north: as the field moves into experimental territory, it is simultaneously beginning to range more broadly. The lower-left remains still. This is a field in confident, directional motion — not scattered, not reversed, not turbulent. A single sustained current with a developing secondary flow.</p>
+            </div>
+          </div>
+
+          <!-- Nautical Drift: Sub-sections -->
+          <div class="entry" id="drift-subsections">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Study</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('drift-subsections')">Nautical Drift — Sub-section Design</h3>
+            <div class="entry-body">
+              <p><em>Affinities — The stable currents.</em> The vectors that have been pointing in the same direction for the longest time. These are not the strongest — they are the most consistent. A moderate current that has run east for three years is more of an Affinity than a strong current that appeared last month.</p>
+              <p><em>Drift — The whole chart.</em> In the nautical view, Drift is not a sub-section — it is the primary view. The entire chart is a picture of drift. Time filters reveal how the current has changed direction over the record's history. A year ago the primary current ran south; now it runs east. That turn is Drift.</p>
+              <p><em>Signals — New currents forming.</em> Vectors that have appeared recently and are strengthening rapidly. The chart highlights these with a distinct rendering: lighter, unsettled, still finding their direction. A Signal is a current that wasn't on the chart last season.</p>
+              <p><em>Routes — Laminar flow between zones.</em> Where the current runs smoothly and consistently between two parts of the field — two cultural zones with aligned drift. Routes in the nautical view are corridors of steady flow rather than paths on a map.</p>
+              <p><em>Periphery — Still water.</em> The zones where no vector exists. No drift. No current. Not dormant — genuinely still. The edges of the chart where the cultural field has no motion at all.</p>
+            </div>
+          </div>
+
         </section>
 
         <!-- ─── 06–07 Pending sections ─────────────────── -->
@@ -2356,6 +2515,121 @@ section {
   opacity: 0.3;
 }
 
+/* ─── Nautical drift chart ──────────────────────────────── */
+.drift-field-wrap {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.drift-y-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 28px;
+  flex-shrink: 0;
+  width: 64px;
+  align-items: flex-end;
+}
+
+.drift-field-inner {
+  flex: 1;
+  min-width: 0;
+}
+
+.drift-axis-label {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.35;
+}
+
+.drift-axis-label--dim {
+  opacity: 0.18;
+}
+
+.drift-pre {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  line-height: 2;
+  color: var(--color-text);
+  opacity: 0.6;
+  margin: 0 0 8px;
+  white-space: pre;
+  overflow-x: auto;
+  letter-spacing: 0.1em;
+}
+
+.drift-x-labels {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.drift-readings {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.drift-section-head {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+  margin: 16px 0 8px;
+}
+
+.drift-section-head:first-child {
+  margin-top: 0;
+}
+
+.drift-reading {
+  display: grid;
+  grid-template-columns: 40px 120px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.drift-reading:last-child {
+  border-bottom: none;
+}
+
+.drift-reading-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.drift-reading-arrow--strong { opacity: 0.85; }
+.drift-reading-arrow--mod    { opacity: 0.65; }
+.drift-reading-arrow--still  { opacity: 0.25; }
+
+.drift-reading-name {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  opacity: 0.55;
+}
+
+.drift-reading-note {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  opacity: 0.45;
+  font-style: italic;
+}
+
 /* ─── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .fn-layout {
@@ -2403,6 +2677,17 @@ section {
   }
   .acc-col-group {
     min-width: 56px;
+  }
+  .drift-y-labels {
+    display: none;
+  }
+  .drift-reading {
+    grid-template-columns: 36px 100px 1fr;
+    gap: 8px;
+  }
+  .drift-pre {
+    font-size: 0.5rem;
+    line-height: 1.8;
   }
 }
 </style>
