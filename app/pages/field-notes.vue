@@ -825,8 +825,329 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           </article>
         </section>
 
-        <!-- ─── 04–07 Pending sections ─────────────────── -->
-        <template v-for="s in SECTIONS.slice(3)" :key="s.id">
+        <!-- ─── 04 Language System ──────────────────────── -->
+        <section id="language-system">
+
+          <div class="section-break">
+            <div class="section-break-head">
+              <span class="section-number">04</span>
+              <h2 class="section-title">Language System</h2>
+            </div>
+            <p class="section-desc">How the system speaks. Terminology. Naming decisions.</p>
+            <div class="section-rule" />
+            <span class="section-ghost" aria-hidden="true">04</span>
+          </div>
+
+          <!-- Primary Navigation -->
+          <div class="entry" id="primary-navigation">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('primary-navigation')">Primary Navigation</h3>
+            <div class="entry-body">
+              <p>Outside has three primary states. The language is plain and does not explain itself — the meaning accumulates through use.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Index</span>
+                  <span class="lang-def">Event discovery feed. What's on.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Record</span>
+                  <span class="lang-def">User event archive. What you've attended.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Field</span>
+                  <span class="lang-def">Pattern layer. What your record looks like, read back to you.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Field Sub-categories -->
+          <div class="entry" id="field-subcategories">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('field-subcategories')">Field Sub-categories</h3>
+            <div class="entry-body">
+              <p>Within Field, five sub-categories divide the pattern layer. Each addresses a different dimension of a cultural life: recurrence, change, emergence, movement, and edge.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Affinities</span>
+                  <span class="lang-def">The things you keep returning to. Recurring events, venues, themes.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Drift</span>
+                  <span class="lang-def">How your attendance has shifted. Change over time, without judgment.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Signals</span>
+                  <span class="lang-def">What the record is starting to suggest. Emerging patterns the system surfaces.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Routes</span>
+                  <span class="lang-def">The paths you move through the city. Repeated movement between scenes.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Periphery</span>
+                  <span class="lang-def">What sits at the edge of your field. Outliers that don't connect to the pattern.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page-Level Copy -->
+          <div class="entry" id="page-level-copy">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('page-level-copy')">Page-Level Copy</h3>
+            <div class="entry-body">
+              <p>Each section is described in a single line. The line states what the page does — it does not sell it.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Index</span>
+                  <span class="lang-def">What's on in New York.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Record</span>
+                  <span class="lang-def">What you've attended.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Field</span>
+                  <span class="lang-def">What your record looks like, read back to you.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Affinities</span>
+                  <span class="lang-def">The things you keep returning to.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Drift</span>
+                  <span class="lang-def">How your attendance has shifted.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Signals</span>
+                  <span class="lang-def">What the record is starting to suggest.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Routes</span>
+                  <span class="lang-def">The paths you move through the city.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Periphery</span>
+                  <span class="lang-def">What sits at the edge of your field.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty States -->
+          <div class="entry" id="empty-states">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('empty-states')">Empty States</h3>
+            <div class="entry-body">
+              <p>Stated plainly. No apology, no encouragement, no exclamation marks. Empty states describe a condition — they do not perform concern about it.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Record — new user</span>
+                  <span class="lang-def">Your record starts with the next event you attend.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Field — not enough data</span>
+                  <span class="lang-def">Your field builds as your record does.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Affinities</span>
+                  <span class="lang-def">Affinities take time to emerge. Keep attending.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Drift</span>
+                  <span class="lang-def">Drift becomes visible over a longer record.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Signals</span>
+                  <span class="lang-def">Nothing yet. Signals take time.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Routes</span>
+                  <span class="lang-def">Routes appear once you've moved through the city a few times.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Periphery</span>
+                  <span class="lang-def">Nothing at the edges.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Index — no results</span>
+                  <span class="lang-def">Nothing here. Try widening the search.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Language -->
+          <div class="entry" id="action-language">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('action-language')">Action Language</h3>
+            <div class="entry-body">
+              <p>"Mark attended" is the most important call to action in the product. It should never read as "log," "check in," or "track." The act is deliberate. The word should reflect that.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Log an event</span>
+                  <span class="lang-def">Mark attended</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Remove from record</span>
+                  <span class="lang-def">Remove</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Save for later</span>
+                  <span class="lang-def">Hold</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Add to a collection</span>
+                  <span class="lang-def">Collect</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">View your archive</span>
+                  <span class="lang-def">Open your record</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">See your field</span>
+                  <span class="lang-def">Read your field</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern Language -->
+          <div class="entry" id="pattern-language">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('pattern-language')">Pattern Language</h3>
+            <div class="entry-body">
+              <p>How the system speaks when it surfaces observations. Three rules govern all pattern copy.</p>
+              <p>The system observes. It does not conclude. Never: "You love jazz." Always: "Jazz appears consistently in your record." The difference is not hedging — it is accuracy. The system reads behavior. The user decides what it means.</p>
+              <p>Quantify specifically. "Seven times" is more trustworthy than "often." Numbers ground the observation and make it legible.</p>
+              <p>Anchor in time. Every observation should carry a timeframe: this year, lately, over the past six months. Patterns without time are noise.</p>
+
+              <p class="lang-section-label">Affinities</p>
+              <div class="lang-example-group">
+                <p class="lang-example">You've attended [Venue] nine times this year.</p>
+                <p class="lang-example">[Category] appears consistently across your record.</p>
+                <p class="lang-example">You tend to return to [Venue] in winter.</p>
+                <p class="lang-example">You've attended [Series] every time it's appeared in your record.</p>
+              </div>
+
+              <p class="lang-section-label">Drift</p>
+              <div class="lang-example-group">
+                <p class="lang-example">Your record has moved toward smaller venues over the past year.</p>
+                <p class="lang-example">Film has become less central to your attendance lately.</p>
+                <p class="lang-example">A year ago, [Category] made up most of your record. It's a smaller part now.</p>
+                <p class="lang-example">You're ranging further from [Neighborhood] than you were last year.</p>
+              </div>
+
+              <p class="lang-section-label">Signals</p>
+              <div class="lang-example-group">
+                <p class="lang-example">You've attended three events at [Venue] in the past month — more than usual.</p>
+                <p class="lang-example">[Category] is appearing in your record with increasing frequency.</p>
+                <p class="lang-example">A pattern around [Theme] is becoming visible.</p>
+                <p class="lang-example">Something is shifting toward [Scene]. Worth watching.</p>
+              </div>
+
+              <p class="lang-section-label">Routes</p>
+              <div class="lang-example-group">
+                <p class="lang-example">You move regularly between [Neighborhood] and [Neighborhood].</p>
+                <p class="lang-example">[Neighborhood A] and [Neighborhood B] appear in the same weeks, often.</p>
+                <p class="lang-example">You rarely cross [boundary]. When you do, it's usually for [Category].</p>
+              </div>
+
+              <p class="lang-section-label">Periphery</p>
+              <div class="lang-example-group">
+                <p class="lang-example">You attended [Event Type] once. It doesn't fit the pattern.</p>
+                <p class="lang-example">[Venue] appeared in your record once, last [Month]. It hasn't since.</p>
+                <p class="lang-example">This sits outside your usual range. That's not a problem.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestones -->
+          <div class="entry" id="milestones">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('milestones')">Milestones</h3>
+            <div class="entry-body">
+              <p>Stated without ceremony. No congratulations, no confetti. Milestones are acknowledged by stating the number and making a quiet observation — nothing more.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">1st event</span>
+                  <span class="lang-def">Your record has started.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">10 events</span>
+                  <span class="lang-def">Ten events on record.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">25 events</span>
+                  <span class="lang-def">Your field is beginning to take shape.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">50 events</span>
+                  <span class="lang-def">Fifty events. Patterns are becoming visible.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">100 events</span>
+                  <span class="lang-def">One hundred events on record.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">1 year</span>
+                  <span class="lang-def">A year of attendance.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tone Principles -->
+          <div class="entry" id="tone-principles">
+            <div class="entry-meta">
+              <span class="meta-label">Language System</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('tone-principles')">Tone Principles</h3>
+            <div class="entry-body">
+              <p>Observe, don't declare. The system surfaces what's in the data. The user decides what it means.</p>
+              <p>Prefer "appears" and "suggests" over "shows" and "proves." Outside is not a diagnostic tool. It reads. It does not conclude.</p>
+              <p>Never tell users what they are. "You're a jazz person" is a claim the product can't make and shouldn't want to. "Jazz appears consistently in your record" is a fact.</p>
+              <p>Specific is more trustworthy than vague. "Seven times this year" over "frequently." Numbers are not cold — they're honest.</p>
+              <p>Restraint is the voice. If a line can be cut without losing meaning, cut it. The product's credibility comes from saying less and meaning more.</p>
+              <p>Time grounds everything. Patterns without time are noise. Every observation should carry a when.</p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ─── 05–07 Pending sections ─────────────────── -->
+        <template v-for="s in SECTIONS.slice(4)" :key="s.id">
           <section :id="s.id">
             <div class="section-break">
               <div class="section-break-head">
@@ -1150,6 +1471,70 @@ section {
   font-style: italic;
   color: var(--color-text);
   opacity: 1;
+}
+
+/* ─── Language tables ────────────────────────────────────── */
+.lang-table {
+  margin: 28px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.lang-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  align-items: baseline;
+}
+
+.lang-term {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.lang-def {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.lang-section-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.45;
+  margin: 32px 0 12px !important;
+}
+
+.lang-example-group {
+  margin-bottom: 8px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.lang-example {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  opacity: 0.75;
+  margin: 0 0 6px !important;
+  font-style: italic;
+}
+
+.lang-example:last-child {
+  margin-bottom: 0 !important;
 }
 
 /* ─── Archetypes ─────────────────────────────────────────── */
