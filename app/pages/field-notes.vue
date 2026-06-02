@@ -1729,6 +1729,342 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </div>
           </div>
 
+          <!-- ─── Terrain Rendering Studies ──────────────── -->
+
+          <!-- Study I — Contour Line -->
+          <div class="entry" id="terrain-study-contour">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Candidate</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('terrain-study-contour')">Terrain Study I — Contour Line</h3>
+            <div class="entry-body">
+              <p><strong>Reference.</strong> Swiss Federal Atlas (Swisstopo), USGS topographic quadrangles. Closed curves at equal elevation intervals. Index contours drawn at increased weight every third ring. Summit marked with a solid point.</p>
+              <p><strong>Advantages.</strong> Maximum clarity at any scale. Ring count communicates relative elevation without ambiguity. Immediately recognizable as a map object — no translation required.</p>
+              <p><strong>Disadvantages.</strong> Conveys form, not mass. Two peaks with very different attendance can look similar if ring counts are close. Communicates shape better than weight.</p>
+              <p><strong>Field support.</strong> Positions the terrain as document, not visualization. The contour line is precise, universal, and pre-digital. A Field rendered this way reads as something surveyed, not generated.</p>
+            </div>
+            <div class="terrain-study">
+              <div class="terrain-study-header">
+                <span class="terrain-study-title">TERRAIN STUDY I — CONTOUR LINE</span>
+                <span class="terrain-study-period">2023 → 2025</span>
+              </div>
+              <div class="terrain-study-body">
+                <svg class="terrain-svg" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <line x1="0" y1="50"  x2="520" y2="50"  stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="0" y1="100" x2="520" y2="100" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="0" y1="150" x2="520" y2="150" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="80"  y1="0" x2="80"  y2="200" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="160" y1="0" x2="160" y2="200" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="240" y1="0" x2="240" y2="200" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="320" y1="0" x2="320" y2="200" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="400" y1="0" x2="400" y2="200" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <line x1="480" y1="0" x2="480" y2="200" stroke="currentColor" stroke-width="0.3" opacity="0.07"/>
+                  <path d="M 165 100 C 225 78 278 100 335 110" fill="none" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3" opacity="0.28"/>
+                  <ellipse cx="165" cy="100" rx="120" ry="62" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.20"/>
+                  <ellipse cx="165" cy="100" rx="102" ry="53" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.28"/>
+                  <ellipse cx="165" cy="100" rx="84"  ry="44" fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.38"/>
+                  <ellipse cx="165" cy="100" rx="67"  ry="35" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.46"/>
+                  <ellipse cx="165" cy="100" rx="51"  ry="26" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.55"/>
+                  <ellipse cx="165" cy="100" rx="36"  ry="18" fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.65"/>
+                  <ellipse cx="165" cy="100" rx="22"  ry="11" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.75"/>
+                  <ellipse cx="165" cy="100" rx="10"  ry="5"  fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.87"/>
+                  <circle cx="165" cy="100" r="2.5" fill="currentColor" opacity="0.9"/>
+                  <ellipse cx="335" cy="110" rx="76"  ry="40" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.20"/>
+                  <ellipse cx="335" cy="110" rx="60"  ry="31" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.32"/>
+                  <ellipse cx="335" cy="110" rx="45"  ry="23" fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.46"/>
+                  <ellipse cx="335" cy="110" rx="30"  ry="15" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.60"/>
+                  <ellipse cx="335" cy="110" rx="16"  ry="8"  fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.75"/>
+                  <circle cx="335" cy="110" r="2" fill="currentColor" opacity="0.9"/>
+                  <ellipse cx="460" cy="84" rx="48"   ry="26" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.18"/>
+                  <ellipse cx="460" cy="84" rx="34"   ry="18" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.34"/>
+                  <ellipse cx="460" cy="84" rx="20"   ry="10" fill="none" stroke="currentColor" stroke-width="0.4"  opacity="0.54"/>
+                  <circle cx="460" cy="84" r="1.5" fill="currentColor" opacity="0.85"/>
+                  <text x="165" y="88" text-anchor="middle" font-family="var(--font-mono)" font-size="7"   letter-spacing="0.08em" fill="currentColor" opacity="0.72">FILM</text>
+                  <text x="335" y="98" text-anchor="middle" font-family="var(--font-mono)" font-size="6"   letter-spacing="0.07em" fill="currentColor" opacity="0.65">SOUND</text>
+                  <text x="460" y="73" text-anchor="middle" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.07em" fill="currentColor" opacity="0.58">PERF.</text>
+                </svg>
+              </div>
+              <div class="terrain-study-footer">
+                <span class="terrain-study-note">Contour interval: 10 visits · Index contour (heavy): every 30 visits · ● Summit · — — Route</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Study II — Elevation Band -->
+          <div class="entry" id="terrain-study-bands">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Candidate</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('terrain-study-bands')">Terrain Study II — Elevation Band</h3>
+            <div class="entry-body">
+              <p><strong>Reference.</strong> NOAA bathymetric charts, geological bedrock sections. Terrain expressed through filled tonal zones rather than outlines — light at the base, deepening toward the summit. No contour lines.</p>
+              <p><strong>Advantages.</strong> Communicates mass and weight immediately. A dominant peak reads as visually heavier without ring-counting. More gestural, less technical.</p>
+              <p><strong>Disadvantages.</strong> Loses interval precision. Exact thresholds are ambiguous without explicit lines. Territory edges dissolve into the background without outline definition.</p>
+              <p><strong>Field support.</strong> The tonal gradient suggests terrain accumulated over time — like sediment. Supports the idea that attendance builds a landscape rather than fills a chart.</p>
+            </div>
+            <div class="terrain-study">
+              <div class="terrain-study-header">
+                <span class="terrain-study-title">TERRAIN STUDY II — ELEVATION BAND</span>
+                <span class="terrain-study-period">2023 → 2025</span>
+              </div>
+              <div class="terrain-study-body">
+                <svg class="terrain-svg" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <ellipse cx="165" cy="100" rx="120" ry="62" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="165" cy="100" rx="102" ry="53" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="165" cy="100" rx="84"  ry="44" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="165" cy="100" rx="67"  ry="35" fill="currentColor" opacity="0.06"/>
+                  <ellipse cx="165" cy="100" rx="51"  ry="26" fill="currentColor" opacity="0.07"/>
+                  <ellipse cx="165" cy="100" rx="36"  ry="18" fill="currentColor" opacity="0.09"/>
+                  <ellipse cx="165" cy="100" rx="20"  ry="10" fill="currentColor" opacity="0.12"/>
+                  <ellipse cx="165" cy="100" rx="120" ry="62" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+                  <circle cx="165" cy="100" r="2.5" fill="currentColor" opacity="0.72"/>
+                  <ellipse cx="335" cy="110" rx="76"  ry="40" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="335" cy="110" rx="58"  ry="30" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="335" cy="110" rx="40"  ry="21" fill="currentColor" opacity="0.07"/>
+                  <ellipse cx="335" cy="110" rx="22"  ry="11" fill="currentColor" opacity="0.10"/>
+                  <ellipse cx="335" cy="110" rx="76"  ry="40" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.22"/>
+                  <circle cx="335" cy="110" r="2" fill="currentColor" opacity="0.72"/>
+                  <ellipse cx="460" cy="84" rx="48"   ry="26" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="460" cy="84" rx="32"   ry="17" fill="currentColor" opacity="0.07"/>
+                  <ellipse cx="460" cy="84" rx="18"   ry="9"  fill="currentColor" opacity="0.10"/>
+                  <ellipse cx="460" cy="84" rx="48"   ry="26" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.18"/>
+                  <circle cx="460" cy="84" r="1.5" fill="currentColor" opacity="0.65"/>
+                  <text x="165" y="95"  text-anchor="middle" font-family="var(--font-mono)" font-size="7"   letter-spacing="0.08em" fill="currentColor" opacity="0.75">FILM</text>
+                  <text x="335" y="105" text-anchor="middle" font-family="var(--font-mono)" font-size="6"   letter-spacing="0.07em" fill="currentColor" opacity="0.68">SOUND</text>
+                  <text x="460" y="79"  text-anchor="middle" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.07em" fill="currentColor" opacity="0.62">PERF.</text>
+                </svg>
+              </div>
+              <div class="terrain-study-footer">
+                <span class="terrain-study-note">7 stacked tonal bands · Edge: 5% opacity · Summit: 49% cumulative · Outer stroke defines territory boundary</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Study III — Stipple -->
+          <div class="entry" id="terrain-study-stipple">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Candidate</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('terrain-study-stipple')">Terrain Study III — Stipple</h3>
+            <div class="entry-body">
+              <p><strong>Reference.</strong> 19th-century atlas engraving (Baedeker, early Michelin), geological survey illustration, natural history museum diagrams. Dot density represents elevation — the technique predates digital data visualization.</p>
+              <p><strong>Advantages.</strong> Highly distinctive visual identity. No analogue in contemporary data visualization — reads as analog and considered. Each dot reads as an individual observation.</p>
+              <p><strong>Disadvantages.</strong> Dense stipple is visually demanding. Density gradients can be subtle at small reproduction sizes and require consistent display calibration.</p>
+              <p><strong>Field support.</strong> Stipple carries the weight of the archive. Each dot is an observation; the cumulative field is the record. Supports attendance as accumulation rather than summary.</p>
+            </div>
+            <div class="terrain-study">
+              <div class="terrain-study-header">
+                <span class="terrain-study-title">TERRAIN STUDY III — STIPPLE</span>
+                <span class="terrain-study-period">2023 → 2025</span>
+              </div>
+              <div class="terrain-study-body">
+                <svg class="terrain-svg" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <pattern id="ts3-p1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <circle cx="10" cy="10" r="0.65" fill="currentColor" opacity="0.45"/>
+                    </pattern>
+                    <pattern id="ts3-p2" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="7" cy="7" r="0.75" fill="currentColor" opacity="0.55"/>
+                    </pattern>
+                    <pattern id="ts3-p3" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <circle cx="5" cy="5" r="0.85" fill="currentColor" opacity="0.65"/>
+                    </pattern>
+                    <pattern id="ts3-p4" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
+                      <circle cx="3.5" cy="3.5" r="1.0" fill="currentColor" opacity="0.75"/>
+                    </pattern>
+                    <pattern id="ts3-p5" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
+                      <circle cx="2.5" cy="2.5" r="1.3" fill="currentColor" opacity="0.85"/>
+                    </pattern>
+                  </defs>
+                  <ellipse cx="165" cy="100" rx="120" ry="62" fill="url(#ts3-p1)"/>
+                  <ellipse cx="165" cy="100" rx="96"  ry="50" fill="url(#ts3-p2)"/>
+                  <ellipse cx="165" cy="100" rx="72"  ry="37" fill="url(#ts3-p3)"/>
+                  <ellipse cx="165" cy="100" rx="46"  ry="24" fill="url(#ts3-p4)"/>
+                  <ellipse cx="165" cy="100" rx="22"  ry="11" fill="url(#ts3-p5)"/>
+                  <circle cx="165" cy="100" r="3" fill="currentColor" opacity="0.9"/>
+                  <ellipse cx="335" cy="110" rx="76"  ry="40" fill="url(#ts3-p1)"/>
+                  <ellipse cx="335" cy="110" rx="57"  ry="30" fill="url(#ts3-p2)"/>
+                  <ellipse cx="335" cy="110" rx="38"  ry="20" fill="url(#ts3-p3)"/>
+                  <ellipse cx="335" cy="110" rx="20"  ry="10" fill="url(#ts3-p4)"/>
+                  <circle cx="335" cy="110" r="2.2" fill="currentColor" opacity="0.9"/>
+                  <ellipse cx="460" cy="84"  rx="48"  ry="26" fill="url(#ts3-p1)"/>
+                  <ellipse cx="460" cy="84"  rx="32"  ry="17" fill="url(#ts3-p2)"/>
+                  <ellipse cx="460" cy="84"  rx="16"  ry="8"  fill="url(#ts3-p3)"/>
+                  <circle cx="460" cy="84" r="1.8" fill="currentColor" opacity="0.88"/>
+                  <text x="165" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="7"   letter-spacing="0.08em" fill="currentColor" opacity="0.72">FILM</text>
+                  <line x1="165" y1="31" x2="165" y2="38" stroke="currentColor" stroke-width="0.5" opacity="0.35"/>
+                  <text x="335" y="62" text-anchor="middle" font-family="var(--font-mono)" font-size="6"   letter-spacing="0.07em" fill="currentColor" opacity="0.65">SOUND</text>
+                  <line x1="335" y1="65" x2="335" y2="70" stroke="currentColor" stroke-width="0.5" opacity="0.35"/>
+                  <text x="460" y="50" text-anchor="middle" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.07em" fill="currentColor" opacity="0.60">PERF.</text>
+                  <line x1="460" y1="53" x2="460" y2="58" stroke="currentColor" stroke-width="0.5" opacity="0.35"/>
+                </svg>
+              </div>
+              <div class="terrain-study-footer">
+                <span class="terrain-study-note">5 density zones · Dot spacing: 5px (summit) → 20px (base) · Dot radius: 1.3 → 0.65 · ● Summit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Study IV — Slope Hatching -->
+          <div class="entry" id="terrain-study-hatching">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Candidate</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('terrain-study-hatching')">Terrain Study IV — Slope Hatching</h3>
+            <div class="entry-body">
+              <p><strong>Reference.</strong> Lehmann's slope hatching method (1799), historical Swiss and Austrian mountain surveys, copper-plate atlas engraving. Line density encodes slope gradient — steeper terrain carries denser hatching.</p>
+              <p><strong>Advantages.</strong> Communicates gradient, not just elevation. Line direction and density imply the shape of slope. The most distinctly pre-digital of the five approaches.</p>
+              <p><strong>Disadvantages.</strong> Fine lines at high density can create aliasing artifacts on screen. Density variation requires careful calibration to remain legible at smaller display sizes.</p>
+              <p><strong>Field support.</strong> Positions the Field as something mapped before analytics existed as a language. The historical association places cultural activity in a tradition of careful observation — not extraction.</p>
+            </div>
+            <div class="terrain-study">
+              <div class="terrain-study-header">
+                <span class="terrain-study-title">TERRAIN STUDY IV — SLOPE HATCHING</span>
+                <span class="terrain-study-period">2023 → 2025</span>
+              </div>
+              <div class="terrain-study-body">
+                <svg class="terrain-svg" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <pattern id="ts4-h1" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="18" stroke="currentColor" stroke-width="0.30" opacity="0.28"/>
+                    </pattern>
+                    <pattern id="ts4-h2" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="12" stroke="currentColor" stroke-width="0.35" opacity="0.40"/>
+                    </pattern>
+                    <pattern id="ts4-h3" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="8"  stroke="currentColor" stroke-width="0.45" opacity="0.55"/>
+                    </pattern>
+                    <pattern id="ts4-h4" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="5"  stroke="currentColor" stroke-width="0.55" opacity="0.68"/>
+                    </pattern>
+                    <pattern id="ts4-h5" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="3"  stroke="currentColor" stroke-width="0.70" opacity="0.80"/>
+                    </pattern>
+                  </defs>
+                  <ellipse cx="165" cy="100" rx="120" ry="62" fill="url(#ts4-h1)"/>
+                  <ellipse cx="165" cy="100" rx="96"  ry="50" fill="url(#ts4-h2)"/>
+                  <ellipse cx="165" cy="100" rx="72"  ry="37" fill="url(#ts4-h3)"/>
+                  <ellipse cx="165" cy="100" rx="46"  ry="24" fill="url(#ts4-h4)"/>
+                  <ellipse cx="165" cy="100" rx="22"  ry="11" fill="url(#ts4-h5)"/>
+                  <ellipse cx="165" cy="100" rx="120" ry="62" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.35"/>
+                  <circle cx="165" cy="100" r="2.5" fill="currentColor" opacity="0.9"/>
+                  <ellipse cx="335" cy="110" rx="76"  ry="40" fill="url(#ts4-h1)"/>
+                  <ellipse cx="335" cy="110" rx="57"  ry="30" fill="url(#ts4-h2)"/>
+                  <ellipse cx="335" cy="110" rx="38"  ry="20" fill="url(#ts4-h3)"/>
+                  <ellipse cx="335" cy="110" rx="20"  ry="10" fill="url(#ts4-h4)"/>
+                  <ellipse cx="335" cy="110" rx="76"  ry="40" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.30"/>
+                  <circle cx="335" cy="110" r="2" fill="currentColor" opacity="0.9"/>
+                  <ellipse cx="460" cy="84"  rx="48"  ry="26" fill="url(#ts4-h1)"/>
+                  <ellipse cx="460" cy="84"  rx="32"  ry="17" fill="url(#ts4-h2)"/>
+                  <ellipse cx="460" cy="84"  rx="16"  ry="8"  fill="url(#ts4-h3)"/>
+                  <ellipse cx="460" cy="84"  rx="48"  ry="26" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+                  <circle cx="460" cy="84" r="1.5" fill="currentColor" opacity="0.85"/>
+                  <text x="165" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="7"   letter-spacing="0.08em" fill="currentColor" opacity="0.75">FILM</text>
+                  <line x1="165" y1="31" x2="165" y2="38" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+                  <text x="335" y="62" text-anchor="middle" font-family="var(--font-mono)" font-size="6"   letter-spacing="0.07em" fill="currentColor" opacity="0.68">SOUND</text>
+                  <line x1="335" y1="65" x2="335" y2="70" stroke="currentColor" stroke-width="0.5" opacity="0.38"/>
+                  <text x="460" y="50" text-anchor="middle" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.07em" fill="currentColor" opacity="0.62">PERF.</text>
+                  <line x1="460" y1="53" x2="460" y2="58" stroke="currentColor" stroke-width="0.5" opacity="0.35"/>
+                </svg>
+              </div>
+              <div class="terrain-study-footer">
+                <span class="terrain-study-note">Line spacing: 3px (summit) → 18px (base) · 45° diagonal · Line weight: 0.7 → 0.3 · ● Summit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Study V — Labeled Isoline -->
+          <div class="entry" id="terrain-study-isoline">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Candidate</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('terrain-study-isoline')">Terrain Study V — Labeled Isoline</h3>
+            <div class="entry-body">
+              <p><strong>Reference.</strong> Meteorological pressure charts (NOAA, DWD), oceanographic depth surveys, scientific journal cartography. Contour lines annotated with numeric values at breaks in the path — the most information-dense cartographic technique.</p>
+              <p><strong>Advantages.</strong> The only approach where exact thresholds are immediately readable without a separate legend. Combines contour precision with direct labeling. Most explicit about the underlying data.</p>
+              <p><strong>Disadvantages.</strong> Labels require careful placement to avoid obscuring terrain. At small reproduction sizes, numeric labels crowd together. The most demanding layout to maintain as data changes.</p>
+              <p><strong>Field support.</strong> Positions the terrain as precise observation — a document that contains its own key. Supports the idea of the Field as exact measure, not approximate impression.</p>
+            </div>
+            <div class="terrain-study">
+              <div class="terrain-study-header">
+                <span class="terrain-study-title">TERRAIN STUDY V — LABELED ISOLINE</span>
+                <span class="terrain-study-period">2023 → 2025</span>
+              </div>
+              <div class="terrain-study-body">
+                <svg class="terrain-svg" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <line x1="0" y1="55"  x2="640" y2="55"  stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="0" y1="110" x2="640" y2="110" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="0" y1="165" x2="640" y2="165" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="80"  y1="0" x2="80"  y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="160" y1="0" x2="160" y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="240" y1="0" x2="240" y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="320" y1="0" x2="320" y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="400" y1="0" x2="400" y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="480" y1="0" x2="480" y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <line x1="560" y1="0" x2="560" y2="220" stroke="currentColor" stroke-width="0.3" opacity="0.06"/>
+                  <ellipse cx="155" cy="110" rx="120" ry="65" fill="currentColor" opacity="0.04"/>
+                  <ellipse cx="155" cy="110" rx="96"  ry="52" fill="currentColor" opacity="0.04"/>
+                  <ellipse cx="155" cy="110" rx="72"  ry="39" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="155" cy="110" rx="50"  ry="27" fill="currentColor" opacity="0.06"/>
+                  <ellipse cx="155" cy="110" rx="28"  ry="15" fill="currentColor" opacity="0.08"/>
+                  <ellipse cx="155" cy="110" rx="120" ry="65" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.35"/>
+                  <ellipse cx="155" cy="110" rx="96"  ry="52" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.42"/>
+                  <ellipse cx="155" cy="110" rx="72"  ry="39" fill="none" stroke="currentColor" stroke-width="0.90" opacity="0.52"/>
+                  <ellipse cx="155" cy="110" rx="50"  ry="27" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.60"/>
+                  <ellipse cx="155" cy="110" rx="28"  ry="15" fill="none" stroke="currentColor" stroke-width="0.90" opacity="0.72"/>
+                  <rect x="147" y="38"  width="16" height="10" style="fill: var(--color-bg)"/>
+                  <text x="155" y="46"  text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.70">10</text>
+                  <rect x="147" y="51"  width="16" height="10" style="fill: var(--color-bg)"/>
+                  <text x="155" y="59"  text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.70">20</text>
+                  <rect x="147" y="64"  width="16" height="10" style="fill: var(--color-bg)"/>
+                  <text x="155" y="72"  text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.72">30</text>
+                  <rect x="147" y="76"  width="16" height="10" style="fill: var(--color-bg)"/>
+                  <text x="155" y="84"  text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.72">40</text>
+                  <rect x="147" y="88"  width="16" height="10" style="fill: var(--color-bg)"/>
+                  <text x="155" y="96"  text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.72">50</text>
+                  <circle cx="155" cy="110" r="2.5" fill="currentColor" opacity="0.88"/>
+                  <ellipse cx="385" cy="115" rx="80"  ry="43" fill="currentColor" opacity="0.04"/>
+                  <ellipse cx="385" cy="115" rx="60"  ry="32" fill="currentColor" opacity="0.05"/>
+                  <ellipse cx="385" cy="115" rx="42"  ry="22" fill="currentColor" opacity="0.06"/>
+                  <ellipse cx="385" cy="115" rx="24"  ry="13" fill="currentColor" opacity="0.08"/>
+                  <ellipse cx="385" cy="115" rx="80"  ry="43" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.32"/>
+                  <ellipse cx="385" cy="115" rx="60"  ry="32" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.42"/>
+                  <ellipse cx="385" cy="115" rx="42"  ry="22" fill="none" stroke="currentColor" stroke-width="0.90" opacity="0.52"/>
+                  <ellipse cx="385" cy="115" rx="24"  ry="13" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.62"/>
+                  <rect x="461"  y="110" width="14" height="10" style="fill: var(--color-bg)"/>
+                  <text x="468"  y="117" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.65">10</text>
+                  <rect x="423"  y="110" width="14" height="10" style="fill: var(--color-bg)"/>
+                  <text x="430"  y="117" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" fill="currentColor" opacity="0.67">30</text>
+                  <circle cx="385" cy="115" r="2" fill="currentColor" opacity="0.88"/>
+                  <ellipse cx="558" cy="92"  rx="50"  ry="28" fill="currentColor" opacity="0.04"/>
+                  <ellipse cx="558" cy="92"  rx="30"  ry="16" fill="currentColor" opacity="0.06"/>
+                  <ellipse cx="558" cy="92"  rx="50"  ry="28" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.28"/>
+                  <ellipse cx="558" cy="92"  rx="30"  ry="16" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.45"/>
+                  <circle cx="558" cy="92" r="1.5" fill="currentColor" opacity="0.82"/>
+                  <text x="75"  y="18" font-family="var(--font-mono)" font-size="6.5" letter-spacing="0.08em" fill="currentColor" opacity="0.60">FILM</text>
+                  <text x="314" y="18" font-family="var(--font-mono)" font-size="6.5" letter-spacing="0.08em" fill="currentColor" opacity="0.55">SOUND</text>
+                  <text x="510" y="18" font-family="var(--font-mono)" font-size="6.5" letter-spacing="0.08em" fill="currentColor" opacity="0.50">PERF.</text>
+                </svg>
+              </div>
+              <div class="terrain-study-footer">
+                <div class="terrain-study-legend">
+                  <span class="terrain-study-legend-item">Numeric labels: visit thresholds at contour break · Index contours (heavy line): 30 and 50 visits</span>
+                  <span class="terrain-study-legend-item">Film: fully labeled · Sound: partially labeled (10, 30) · Performance: unlabeled</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </section>
 
         <!-- ─── 06–07 Pending sections ─────────────────── -->
@@ -2628,6 +2964,80 @@ section {
   color: var(--color-text-secondary);
   opacity: 0.45;
   font-style: italic;
+}
+
+/* ─── Terrain Studies (SVG-based) ────────────────────────── */
+.terrain-study {
+  margin-top: 36px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.terrain-study-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.terrain-study-title {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.5;
+}
+
+.terrain-study-period {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.10em;
+  color: var(--color-text-secondary);
+  opacity: 0.35;
+}
+
+.terrain-study-body {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.terrain-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: var(--color-text);
+  min-width: 320px;
+}
+
+.terrain-study-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.terrain-study-note {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  opacity: 0.65;
+  line-height: 1.5;
+}
+
+.terrain-study-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.terrain-study-legend-item {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  opacity: 0.65;
+  line-height: 1.5;
 }
 
 /* ─── Mobile ─────────────────────────────────────────────── */
