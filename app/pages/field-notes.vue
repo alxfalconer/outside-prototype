@@ -1146,8 +1146,245 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
         </section>
 
-        <!-- ─── 05–07 Pending sections ─────────────────── -->
-        <template v-for="s in SECTIONS.slice(4)" :key="s.id">
+        <!-- ─── 05 Field Visualization ───────────────────── -->
+        <section id="field-visualization">
+
+          <div class="section-break">
+            <div class="section-break-head">
+              <span class="section-number">05</span>
+              <h2 class="section-title">Field Visualization</h2>
+            </div>
+            <p class="section-desc">How the Field is shown. Visual logic.</p>
+            <div class="section-rule" />
+            <span class="section-ghost" aria-hidden="true">05</span>
+          </div>
+
+          <!-- The Metaphor -->
+          <div class="entry" id="the-metaphor">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('the-metaphor')">The Metaphor</h3>
+            <div class="entry-body">
+              <p>A topographic map does not explain terrain — it reveals it. Contour lines don't tell you what the land means. They show you what it is, and you read the meaning yourself.</p>
+              <p>A Field map works the same way. Attendance data generates terrain. Dense attendance creates elevation. The peaks are where your cultural life concentrates most intensely. The valleys are where it doesn't reach. Routes are the paths worn between peaks. The periphery is the flat land beyond the last contour line.</p>
+              <p>The map is not a summary. It is a landscape.</p>
+            </div>
+          </div>
+
+          <!-- Visual Encoding -->
+          <div class="entry" id="visual-encoding">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('visual-encoding')">Visual Encoding</h3>
+            <div class="entry-body">
+              <p>Each element in the terrain corresponds to a dimension of the record. The encoding is consistent across all views of the Field.</p>
+              <div class="lang-table">
+                <div class="lang-row">
+                  <span class="lang-term">Elevation</span>
+                  <span class="lang-def">Frequency of attendance. Higher ground means more visits.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Contour rings</span>
+                  <span class="lang-def">Density bands — 1 / 2–5 / 6–15 / 16–30 / 31+ visits.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Peak</span>
+                  <span class="lang-def">A venue or theme you return to consistently. An Affinity.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Peak height</span>
+                  <span class="lang-def">Total attendance count at that venue.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Peak proximity</span>
+                  <span class="lang-def">Shared scene or cultural territory between venues.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Route</span>
+                  <span class="lang-def">A path between two peaks attended repeatedly in the same period.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Route weight</span>
+                  <span class="lang-def">Frequency of co-attendance.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Flat ground</span>
+                  <span class="lang-def">Territory present in the record but without density.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Periphery</span>
+                  <span class="lang-def">Isolated attended events with no connecting pattern.</span>
+                </div>
+                <div class="lang-row">
+                  <span class="lang-term">Terrain change</span>
+                  <span class="lang-def">Drift — peaks rising or eroding across time periods.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Example Visualization -->
+          <div class="entry" id="example-visualization">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Example</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('example-visualization')">Example: Field Map</h3>
+            <div class="entry-body">
+              <p>The following renders a sample two-year record. Three peaks of different elevations. One established route. Sparse periphery beyond the contour system.</p>
+            </div>
+            <div class="topo-map" aria-label="Topographic field map example">
+              <div class="topo-header">
+                <span class="topo-title">FIELD MAP</span>
+                <span class="topo-period">2023 → 2025</span>
+              </div>
+              <div class="topo-body">
+                <div class="topo-terrain">
+                  <div class="topo-col topo-col--main">
+                    <div class="topo-zone topo-zone--les">
+                      <span class="topo-zone-label">LOWER EAST SIDE</span>
+                      <pre class="topo-peak">· · · · · · · · · ·
+· ·░░░░░░░░░░░░· · ·
+· ░░░▒▒▒▒▒▒▒▒░░░ ·
+·░░▒▒▒▒▓▓▓▓▒▒▒▒░░·
+·░░▒▒▒▓▓████▓▓▒▒░░·
+·░░▒▒▒▒▓▓▓▓▒▒▒▒░░·
+· ░░░▒▒▒▒▒▒▒▒░░░ ·
+· · ░░░░░░░░░░ · ·
+  · · · · · · · ·</pre>
+                      <div class="topo-peak-label">
+                        <span class="topo-peak-marker topo-peak-marker--major">▲</span>
+                        <span class="topo-peak-name">Metrograph</span>
+                        <span class="topo-peak-count">41 visits</span>
+                        <span class="topo-peak-tags">film · repertory · arthouse</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="topo-col topo-col--side">
+                    <div class="topo-zone topo-zone--bk">
+                      <span class="topo-zone-label">RED HOOK</span>
+                      <pre class="topo-peak">· · · · · · ·
+· ·░░░░░░░· ·
+·░░░▒▒▒▒▒░░░·
+·░░▒▒▒▓▓▒▒░░·
+·░░░▒▒▒▒▒░░░·
+· ·░░░░░░░· ·
+  · · · · · ·</pre>
+                      <div class="topo-peak-label">
+                        <span class="topo-peak-marker topo-peak-marker--major">▲</span>
+                        <span class="topo-peak-name">Pioneer Works</span>
+                        <span class="topo-peak-count">19 visits</span>
+                        <span class="topo-peak-tags">sound · performance</span>
+                      </div>
+                    </div>
+                    <div class="topo-zone topo-zone--dumbo">
+                      <span class="topo-zone-label">DUMBO</span>
+                      <pre class="topo-peak">· · · · · ·
+· ·░░░░░· ·
+· ·░░▒▒░· ·
+· · ░░░ · ·
+  · · · · ·</pre>
+                      <div class="topo-peak-label">
+                        <span class="topo-peak-marker topo-peak-marker--minor">△</span>
+                        <span class="topo-peak-name">St. Ann's Warehouse</span>
+                        <span class="topo-peak-count">8 visits</span>
+                        <span class="topo-peak-tags">theater · dance</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="topo-route">
+                  <div class="topo-route-line">
+                    <span class="topo-route-dash"></span>
+                  </div>
+                  <span class="topo-route-label">ROUTE — Lower East Side → Red Hook · 14×</span>
+                </div>
+
+                <div class="topo-periphery">
+                  <div class="topo-periphery-dots">
+                    <span class="topo-dot">·</span>
+                    <span class="topo-dot">·</span>
+                    <span class="topo-dot">·</span>
+                    <span class="topo-dot">·</span>
+                  </div>
+                  <span class="topo-periphery-label">◦ periphery — 1–2 visits, no pattern</span>
+                </div>
+              </div>
+              <div class="topo-footer">
+                <span class="topo-key-label">KEY</span>
+                <span class="topo-key-item"><span class="topo-key-glyph">·</span> 1</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--1">░</span> 2–5</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--2">▒</span> 6–15</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--3">▓</span> 16–30</span>
+                <span class="topo-key-item"><span class="topo-key-glyph topo-key-glyph--4">█</span> 31+</span>
+                <span class="topo-key-item"><span class="topo-key-glyph">— —</span> route</span>
+              </div>
+            </div>
+            <div class="entry-body" style="margin-top: 32px;">
+              <p><em>Metrograph</em> is the dominant peak — four contour rings, the deepest record in the field. <em>Pioneer Works</em> is a substantial secondary formation, distinct in geography and cultural character. The route between them — 14 co-attended periods across two years — is the most traveled path in the field. <em>St. Ann's Warehouse</em> is smaller: returning, but not yet a dominant peak. The periphery sits beyond the contour system, unconnected.</p>
+            </div>
+          </div>
+
+          <!-- Primary View -->
+          <div class="entry" id="primary-view">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('primary-view')">Primary View</h3>
+            <div class="entry-body">
+              <p>When you open Field, you see the map. No numbers on entry. No list. The terrain renders first. Peaks emerge from a dark ground. Contour rings establish elevation. Routes draw thin lines between the highest points. Peripheral dots sit at the edges, unconnected.</p>
+              <p>The map has been computed from your record. It will look different in six months. Some peaks will be higher. Some will have eroded. New ground may be rising.</p>
+              <p>Tap any peak to surface its data: venue name, attendance count, the date of your first visit, your last. A time slider at the bottom moves through your record chronologically, animating the terrain's formation. You can watch the map grow.</p>
+            </div>
+          </div>
+
+          <!-- Sub-section Design -->
+          <div class="entry" id="subsection-design">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Settled</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('subsection-design')">Sub-section Design</h3>
+            <div class="entry-body">
+              <p><em>Affinities — Your high ground.</em> The peaks, named and ranked. A list view extracted from the map: highest-elevation venues ordered by attendance. Each entry carries a one-line observation drawn from the data. Below the venue list, a secondary view shows thematic affinities — recurring categories cutting across venues, rendered as a smaller terrain.</p>
+              <p><em>Drift — How the terrain has shifted.</em> A before/after comparison across two time periods — default: this year vs. last year. Two terrain views side by side. Where peaks have grown, a rising indicator. Where peaks have eroded, a subsiding indicator. New formations that didn't exist in the earlier period are marked distinctly. The terrain comparison is the primary visual; copy below it is the reading.</p>
+              <p><em>Signals — New ground rising.</em> The map redraws to highlight areas where elevation has increased in the last 60–90 days — venues attended more frequently than their historical average. These are lit differently from established peaks: not yet fully formed, contour rings thinner and lighter. Signals are observations about your own behavior, surfaced before you've consciously registered them.</p>
+              <p><em>Routes — The paths between peaks.</em> The terrain darkens and peaks reduce. What remains are the paths: thin lines connecting co-attended venues, line weight corresponding to frequency. A list view below names each route with a count and temporal pattern.</p>
+              <p><em>Periphery — Beyond the contours.</em> The map zooms to the area beyond the last contour ring. Isolated dots, scattered, no elevation. A list names each attended event that has not generated return. Copy at the top of the section: <em>These sit outside your field's current pattern. That may change.</em></p>
+            </div>
+          </div>
+
+          <!-- Rendering Notes -->
+          <div class="entry" id="rendering-notes">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Technical</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('rendering-notes')">Rendering Notes</h3>
+            <div class="entry-body">
+              <p>SVG-based. Each contour ring is a closed path computed from attendance data using a kernel density function centered on the venue's geographic coordinates. The terrain builds in passes: lowest contour first, highest last.</p>
+              <p>The map uses real geographic coordinates — venues are placed at their actual positions in the city. Elevation is attendance density, not physical elevation. The city grid beneath is visible as a faint underlay, present enough to orient but not to dominate.</p>
+              <p>Color: a single warm tone for elevation against a dark field. Contour rings are distinguished by opacity, not hue. Routes are hairlines. The periphery uses the same marker as the lowest attendance band.</p>
+              <p>Interaction is minimal. Tap a peak to surface its data. Move the time slider to watch the terrain form. The map is not a dashboard — it does not invite filtering, sorting, or rearranging. It is read, not operated.</p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ─── 06–07 Pending sections ─────────────────── -->
+        <template v-for="s in SECTIONS.slice(5)" :key="s.id">
           <section :id="s.id">
             <div class="section-break">
               <div class="section-break-head">
@@ -1615,6 +1852,223 @@ section {
   font-style: italic;
 }
 
+/* ─── Topographic map ───────────────────────────────────── */
+.topo-map {
+  margin: 36px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+}
+
+.topo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.topo-title {
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.5;
+}
+
+.topo-period {
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  opacity: 0.35;
+}
+
+.topo-body {
+  padding: 28px 24px 20px;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.topo-terrain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.topo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topo-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topo-zone-label {
+  font-size: 0.45rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+}
+
+.topo-peak {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1.55;
+  color: var(--color-text);
+  opacity: 0.65;
+  margin: 0;
+  white-space: pre;
+  letter-spacing: 0.05em;
+}
+
+.topo-peak-label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.topo-peak-marker {
+  font-size: 0.55rem;
+  color: var(--color-text);
+}
+
+.topo-peak-marker--major {
+  opacity: 0.8;
+}
+
+.topo-peak-marker--minor {
+  opacity: 0.45;
+}
+
+.topo-peak-name {
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  opacity: 0.75;
+}
+
+.topo-peak-count {
+  font-size: 0.5rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  opacity: 0.45;
+}
+
+.topo-peak-tags {
+  font-size: 0.48rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+  width: 100%;
+}
+
+.topo-route {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 16px;
+}
+
+.topo-route-line {
+  flex-shrink: 0;
+  width: 48px;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3) 0px,
+    rgba(255, 255, 255, 0.3) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.topo-route-label {
+  font-size: 0.48rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.4;
+}
+
+.topo-periphery {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.topo-periphery-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.topo-dot {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-text);
+  opacity: 0.2;
+}
+
+.topo-periphery-label {
+  font-size: 0.48rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+  font-style: italic;
+}
+
+.topo-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  flex-wrap: wrap;
+}
+
+.topo-key-label {
+  font-size: 0.45rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.3;
+  margin-right: 4px;
+}
+
+.topo-key-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.48rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  opacity: 0.4;
+}
+
+.topo-key-glyph {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  opacity: 0.35;
+}
+
+.topo-key-glyph--1 { opacity: 0.45; }
+.topo-key-glyph--2 { opacity: 0.6; }
+.topo-key-glyph--3 { opacity: 0.75; }
+.topo-key-glyph--4 { opacity: 0.9; }
+
 /* ─── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .fn-layout {
@@ -1643,6 +2097,15 @@ section {
   .entry-body p {
     font-size: 0.9375rem;
     line-height: 1.78;
+  }
+  .topo-terrain {
+    grid-template-columns: 1fr;
+  }
+  .topo-peak {
+    font-size: 0.55rem;
+  }
+  .topo-footer {
+    gap: 10px;
   }
 }
 </style>
