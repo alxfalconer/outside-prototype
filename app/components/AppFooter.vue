@@ -12,6 +12,7 @@
 
         <div class="footer-col footer-col--links">
           <nav class="footer-nav">
+            <NuxtLink to="/field-notes" class="footer-link">Field Notes</NuxtLink>
             <a href="#" class="footer-link">Contact</a>
             <a href="#" class="footer-link">Terms of Use</a>
             <a href="#" class="footer-link">Privacy Policy</a>
