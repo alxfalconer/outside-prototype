@@ -2065,6 +2065,205 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </div>
           </div>
 
+          <!-- Terrain Hybrid — Contour + Stipple -->
+          <div class="entry" id="terrain-hybrid">
+            <div class="entry-meta">
+              <span class="meta-label">Field Visualization</span>
+              <span class="meta-sep">—</span>
+              <span class="meta-status">Candidate</span>
+            </div>
+            <h3 class="entry-title" @click="copyAnchor('terrain-hybrid')">Terrain Hybrid — Contour + Stipple</h3>
+            <div class="entry-body">
+              <p>Contour lines establish where a territory begins and ends. Stipple conveys what has accumulated within it. The two techniques address different questions: the contour asks <em>where does this territory end</em>, the stipple asks <em>how much has happened here</em>.</p>
+              <p>Secondary peaks are not separate mountains. They are concentrations within the same territory — a second venue you return to consistently, living inside the same cultural orbit as the first. The corridor between territories is not a line. It is a zone: the shared ground where two territories overlap at their periphery.</p>
+            </div>
+            <div class="terrain-study">
+              <div class="terrain-study-header">
+                <span class="terrain-study-title">CULTURAL LANDSCAPE — FILM · SOUND</span>
+                <span class="terrain-study-period">2023 → 2025</span>
+              </div>
+              <div class="terrain-study-body">
+                <svg class="terrain-svg" viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <pattern id="thm-p1" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+                      <circle cx="11" cy="11" r="0.60" fill="currentColor" opacity="0.38"/>
+                    </pattern>
+                    <pattern id="thm-p2" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="7" cy="7" r="0.75" fill="currentColor" opacity="0.52"/>
+                    </pattern>
+                    <pattern id="thm-p3" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <circle cx="5" cy="5" r="0.85" fill="currentColor" opacity="0.65"/>
+                    </pattern>
+                    <pattern id="thm-p4" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
+                      <circle cx="3.5" cy="3.5" r="1.00" fill="currentColor" opacity="0.75"/>
+                    </pattern>
+                    <pattern id="thm-p5" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
+                      <circle cx="2.5" cy="2.5" r="1.30" fill="currentColor" opacity="0.85"/>
+                    </pattern>
+                    <marker id="thm-arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                      <path d="M 0,0.5 L 4,2.5 L 0,4.5 Z" fill="currentColor" opacity="0.55"/>
+                    </marker>
+                  </defs>
+
+                  <!-- Periphery — isolated observations beyond territories -->
+                  <circle cx="46"  cy="92"  r="0.9" fill="currentColor" opacity="0.18"/>
+                  <circle cx="72"  cy="238" r="0.9" fill="currentColor" opacity="0.15"/>
+                  <circle cx="114" cy="250" r="0.9" fill="currentColor" opacity="0.13"/>
+                  <circle cx="292" cy="232" r="0.9" fill="currentColor" opacity="0.16"/>
+                  <circle cx="322" cy="258" r="0.9" fill="currentColor" opacity="0.13"/>
+                  <circle cx="360" cy="242" r="0.9" fill="currentColor" opacity="0.12"/>
+                  <circle cx="576" cy="46"  r="0.9" fill="currentColor" opacity="0.18"/>
+                  <circle cx="610" cy="80"  r="0.9" fill="currentColor" opacity="0.16"/>
+                  <circle cx="622" cy="192" r="0.9" fill="currentColor" opacity="0.14"/>
+                  <circle cx="30"  cy="202" r="0.9" fill="currentColor" opacity="0.12"/>
+                  <circle cx="56"  cy="48"  r="0.9" fill="currentColor" opacity="0.15"/>
+
+                  <!-- Connection corridor — shared cultural ground between territories -->
+                  <ellipse cx="312" cy="154" rx="72" ry="22" fill="url(#thm-p1)" opacity="0.65"/>
+                  <path d="M 168 152 C 252 135 356 158 432 164" fill="none" stroke="currentColor" stroke-width="0.7" stroke-dasharray="4 3" opacity="0.23"/>
+
+                  <!-- Film territory — contour boundary -->
+                  <ellipse cx="180" cy="148" rx="118" ry="76" fill="none" stroke="currentColor" stroke-width="0.40" opacity="0.28"/>
+                  <ellipse cx="180" cy="148" rx="94"  ry="60" fill="none" stroke="currentColor" stroke-width="0.80" opacity="0.40"/>
+                  <!-- Film territory — background stipple -->
+                  <ellipse cx="180" cy="148" rx="118" ry="76" fill="url(#thm-p1)"/>
+                  <!-- Film primary peak — repertory film -->
+                  <ellipse cx="165" cy="152" rx="60"  ry="38" fill="url(#thm-p2)"/>
+                  <ellipse cx="165" cy="152" rx="40"  ry="26" fill="url(#thm-p3)"/>
+                  <ellipse cx="165" cy="152" rx="24"  ry="15" fill="url(#thm-p4)"/>
+                  <ellipse cx="165" cy="152" rx="10"  ry="7"  fill="url(#thm-p5)"/>
+                  <circle cx="165" cy="152" r="2.5" fill="currentColor" opacity="0.88"/>
+                  <!-- Film secondary peak — museum programming -->
+                  <ellipse cx="226" cy="133" rx="34"  ry="22" fill="url(#thm-p2)"/>
+                  <ellipse cx="226" cy="133" rx="20"  ry="13" fill="url(#thm-p3)"/>
+                  <circle cx="226" cy="133" r="1.8" fill="currentColor" opacity="0.70"/>
+
+                  <!-- Sound territory — contour boundary -->
+                  <ellipse cx="452" cy="160" rx="108" ry="70" fill="none" stroke="currentColor" stroke-width="0.40" opacity="0.26"/>
+                  <ellipse cx="452" cy="160" rx="84"  ry="54" fill="none" stroke="currentColor" stroke-width="0.80" opacity="0.38"/>
+                  <!-- Sound territory — background stipple -->
+                  <ellipse cx="452" cy="160" rx="108" ry="70" fill="url(#thm-p1)"/>
+                  <!-- Sound primary peak — established venues -->
+                  <ellipse cx="432" cy="165" rx="52"  ry="33" fill="url(#thm-p2)"/>
+                  <ellipse cx="432" cy="165" rx="34"  ry="21" fill="url(#thm-p3)"/>
+                  <ellipse cx="432" cy="165" rx="18"  ry="11" fill="url(#thm-p4)"/>
+                  <circle cx="432" cy="165" r="2.2" fill="currentColor" opacity="0.88"/>
+                  <!-- Sound secondary peak — experimental, emerging -->
+                  <ellipse cx="498" cy="144" rx="36"  ry="23" fill="url(#thm-p2)"/>
+                  <ellipse cx="498" cy="144" rx="20"  ry="13" fill="url(#thm-p3)"/>
+                  <circle cx="498" cy="144" r="1.5" fill="currentColor" opacity="0.68"/>
+
+                  <!-- Drift — Sound territory expanding toward experimental -->
+                  <line x1="452" y1="156" x2="486" y2="143" stroke="currentColor" stroke-width="0.85" opacity="0.44" marker-end="url(#thm-arrow)"/>
+                  <text x="492" y="139" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.07em" fill="currentColor" opacity="0.40">drift</text>
+
+                  <!-- Territory labels -->
+                  <text x="74"  y="80"  font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.10em" fill="currentColor" opacity="0.65">FILM</text>
+                  <text x="358" y="96"  font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.10em" fill="currentColor" opacity="0.58">SOUND</text>
+                  <!-- Peak labels -->
+                  <text x="152" y="168" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.06em" fill="currentColor" opacity="0.44">▲ repertory</text>
+                  <text x="214" y="148" font-family="var(--font-mono)" font-size="5.0" letter-spacing="0.06em" fill="currentColor" opacity="0.36">△ museum</text>
+                  <text x="418" y="182" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.06em" fill="currentColor" opacity="0.42">▲ venue</text>
+                  <text x="484" y="160" font-family="var(--font-mono)" font-size="5.0" letter-spacing="0.06em" fill="currentColor" opacity="0.35">△ exp.</text>
+                </svg>
+              </div>
+
+              <!-- Temporal cross-section -->
+              <div class="terrain-study-subheader">
+                <span>FIELD DRIFT — 2023 · 2024 · 2025</span>
+              </div>
+              <div class="terrain-temporal">
+
+                <!-- 2023 -->
+                <div class="terrain-temporal-panel">
+                  <span class="terrain-temporal-year">2023</span>
+                  <div class="terrain-temporal-body">
+                    <svg class="terrain-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <!-- Film — established territory -->
+                      <ellipse cx="68" cy="63" rx="48" ry="33" fill="none" stroke="currentColor" stroke-width="0.55" opacity="0.40"/>
+                      <ellipse cx="68" cy="63" rx="48" ry="33" fill="currentColor" opacity="0.04"/>
+                      <ellipse cx="66" cy="65" rx="28" ry="19" fill="currentColor" opacity="0.05"/>
+                      <ellipse cx="66" cy="65" rx="14" ry="9"  fill="currentColor" opacity="0.07"/>
+                      <circle cx="66" cy="65" r="1.8" fill="currentColor" opacity="0.65"/>
+                      <!-- Sound — barely present, no territory yet -->
+                      <ellipse cx="148" cy="67" rx="16" ry="11" fill="currentColor" opacity="0.03"/>
+                      <!-- Labels -->
+                      <text x="32" y="36" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.08em" fill="currentColor" opacity="0.52">FILM</text>
+                      <text x="124" y="36" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.08em" fill="currentColor" opacity="0.20">SOUND</text>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="terrain-temporal-panel">
+                  <span class="terrain-temporal-year">2024</span>
+                  <div class="terrain-temporal-body">
+                    <svg class="terrain-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <!-- Film — unchanged -->
+                      <ellipse cx="68" cy="63" rx="48" ry="33" fill="none" stroke="currentColor" stroke-width="0.55" opacity="0.40"/>
+                      <ellipse cx="68" cy="63" rx="48" ry="33" fill="currentColor" opacity="0.04"/>
+                      <ellipse cx="66" cy="65" rx="28" ry="19" fill="currentColor" opacity="0.05"/>
+                      <ellipse cx="66" cy="65" rx="14" ry="9"  fill="currentColor" opacity="0.07"/>
+                      <circle cx="66" cy="65" r="1.8" fill="currentColor" opacity="0.65"/>
+                      <!-- Sound — territory forming -->
+                      <ellipse cx="148" cy="67" rx="32" ry="21" fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.26"/>
+                      <ellipse cx="148" cy="67" rx="32" ry="21" fill="currentColor" opacity="0.04"/>
+                      <ellipse cx="146" cy="69" rx="18" ry="12" fill="currentColor" opacity="0.06"/>
+                      <circle cx="146" cy="69" r="1.5" fill="currentColor" opacity="0.55"/>
+                      <!-- Corridor — beginning to form -->
+                      <ellipse cx="106" cy="65" rx="26" ry="9" fill="currentColor" opacity="0.03"/>
+                      <!-- Labels -->
+                      <text x="32" y="36" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.08em" fill="currentColor" opacity="0.52">FILM</text>
+                      <text x="124" y="36" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.08em" fill="currentColor" opacity="0.36">SOUND</text>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- 2025 -->
+                <div class="terrain-temporal-panel">
+                  <span class="terrain-temporal-year">2025</span>
+                  <div class="terrain-temporal-body">
+                    <svg class="terrain-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <!-- Film — stable, unchanged -->
+                      <ellipse cx="68" cy="63" rx="48" ry="33" fill="none" stroke="currentColor" stroke-width="0.55" opacity="0.40"/>
+                      <ellipse cx="68" cy="63" rx="48" ry="33" fill="currentColor" opacity="0.04"/>
+                      <ellipse cx="66" cy="65" rx="28" ry="19" fill="currentColor" opacity="0.05"/>
+                      <ellipse cx="66" cy="65" rx="14" ry="9"  fill="currentColor" opacity="0.07"/>
+                      <circle cx="66" cy="65" r="1.8" fill="currentColor" opacity="0.65"/>
+                      <!-- Sound — strong territory, second peak forming -->
+                      <ellipse cx="148" cy="66" rx="42" ry="29" fill="none" stroke="currentColor" stroke-width="0.55" opacity="0.36"/>
+                      <ellipse cx="148" cy="66" rx="42" ry="29" fill="currentColor" opacity="0.04"/>
+                      <ellipse cx="143" cy="69" rx="24" ry="16" fill="currentColor" opacity="0.06"/>
+                      <ellipse cx="143" cy="69" rx="13" ry="9"  fill="currentColor" opacity="0.09"/>
+                      <circle cx="143" cy="69" r="2.0" fill="currentColor" opacity="0.72"/>
+                      <!-- Sound secondary peak — experimental -->
+                      <ellipse cx="165" cy="54" rx="16" ry="11" fill="currentColor" opacity="0.05"/>
+                      <ellipse cx="165" cy="54" rx="9"  ry="6"  fill="currentColor" opacity="0.08"/>
+                      <circle cx="165" cy="54" r="1.2" fill="currentColor" opacity="0.55"/>
+                      <!-- Corridor — visible -->
+                      <ellipse cx="106" cy="65" rx="32" ry="11" fill="currentColor" opacity="0.03"/>
+                      <path d="M 66 65 C 90 58 120 64 143 69" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.20"/>
+                      <!-- Drift indicator -->
+                      <path d="M 150 63 L 161 55" stroke="currentColor" stroke-width="0.7" opacity="0.44" fill="none"/>
+                      <path d="M 158 52 L 161 55 L 164 54" stroke="currentColor" stroke-width="0.6" opacity="0.44" fill="none"/>
+                      <!-- Labels -->
+                      <text x="32"  y="36" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.08em" fill="currentColor" opacity="0.52">FILM</text>
+                      <text x="114" y="36" font-family="var(--font-mono)" font-size="5.5" letter-spacing="0.08em" fill="currentColor" opacity="0.52">SOUND</text>
+                    </svg>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="terrain-study-footer">
+                <div class="terrain-study-legend">
+                  <span class="terrain-study-legend-item">— Contour: territory boundary · Stipple: accumulated visits · ▲ Primary peak · △ Secondary peak</span>
+                  <span class="terrain-study-legend-item">Corridor: shared cultural ground between territories · → Drift: direction of expansion · · Periphery: single visits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </section>
 
         <!-- ─── 06–07 Pending sections ─────────────────── -->
@@ -3038,6 +3237,51 @@ section {
   color: var(--color-text-secondary);
   opacity: 0.65;
   line-height: 1.5;
+}
+
+.terrain-study-subheader {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.terrain-study-subheader span {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.42;
+}
+
+.terrain-temporal {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.terrain-temporal-panel {
+  border-right: 1px solid var(--color-border);
+}
+
+.terrain-temporal-panel:last-child {
+  border-right: none;
+}
+
+.terrain-temporal-year {
+  display: block;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  opacity: 0.55;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.terrain-temporal-body {
+  padding: 16px 12px;
 }
 
 /* ─── Mobile ─────────────────────────────────────────────── */
